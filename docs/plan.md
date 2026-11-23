@@ -29,7 +29,7 @@ Tích hợp ứng dụng và kiểm thử tự động được hoãn theo phạ
 ## Buổi chốt thiết kế
 
 1. Đi qua các tình huống trong [đặc tả](requirements.md), ưu tiên tranh lượt giữ, hết hạn giữ, cọc đến trễ, no-show, hoàn cọc và đổi phòng. Với mỗi thao tác ghi, thống nhất dữ liệu nào đổi cùng giao dịch và trạng thái khi một bước thất bại.
-2. Chốt ý nghĩa và chủ sở hữu của mã khách, phòng, yêu cầu đặt, lượt lưu trú và chặng phòng. Dùng các điểm giao trong [phân công](../CONTRIBUTING.md) để chốt khóa ngoại.
+2. Chốt ý nghĩa và chủ sở hữu của mã khách, phòng, lượt lưu trú, đơn đặt và chặng phòng. Rà hai đơn cùng lượt có thể check-in, đổi phòng và trả phòng độc lập, còn thu ngân có thể thanh toán chung. Dùng các điểm giao trong [phân công](../CONTRIBUTING.md) để chốt khóa ngoại.
 3. TV2 và TV3 thống nhất cách chặn xếp trùng phòng và cách ghi lịch bảo trì. Một phương án nhóm có thể đánh giá sau khi duyệt mô hình là khóa theo mã phòng trong giao dịch bằng `sp_getapplock`, rồi kiểm tra lại lịch trước khi ghi. Với giao dịch chuyển phòng, dùng thứ tự lấy khóa cố định. [Tài liệu Microsoft](https://learn.microsoft.com/sql/relational-databases/system-stored-procedures/sp-getapplock-transact-sql)
 4. Cả nhóm ghép ERD, rà số lượng và loại quan hệ. Chọn các bảng để trình bày chứng minh 3NF, chốt thứ tự DDL và hoàn thiện [hồ sơ thiết kế](design/README.md).
 

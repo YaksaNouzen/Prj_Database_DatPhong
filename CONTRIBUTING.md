@@ -14,11 +14,11 @@ Thay TV1–TV5 bằng tên và tài khoản GitHub của từng người khi nh�
 
 | Điểm giao | Hai bên chốt |
 |---|---|
-| TV1 ↔ TV2 | Mã yêu cầu, mã khách, mã hạng, khoảng ngày, hạn giữ, xác nhận của khách và lý do đóng đơn |
-| TV2 ↔ TV3 | Mã phòng và chặng, quy tắc khóa lịch bảo trì, công việc dọn sau trả/chuyển |
-| TV2 ↔ TV4 | Mã đơn/lượt/chặng, giá chốt, điều kiện cọc, lý do hoàn/giữ cọc, cách chia chặng và điều kiện công nợ khi check-out |
+| TV1 ↔ TV2 | Cách nhóm nhiều đơn trong một lượt, mã khách, mã hạng, lịch và hạn giữ riêng của từng đơn, xác nhận của khách và lý do đóng đơn |
+| TV2 ↔ TV3 | Mã phòng và chặng, tình trạng sử dụng thực tế, sự cố, lịch bảo trì và việc dọn sau trả/chuyển |
+| TV2 ↔ TV4 | Mã lượt/đơn/chặng, giữ nguyên đơn khi chuyển phòng, giá và cọc từng đơn, công nợ khi trả riêng và phân bổ khi thu chung |
 | TV3 ↔ TV4 | Mã phát sinh gốc, chặng sử dụng, số lượng và đơn giá, quy tắc tính phí một lần |
-| TV1–4 ↔ TV5 | Lịch ngày lễ, trạng thái cần audit, quyền duyệt điều chỉnh/bồi thường và nguồn tính báo cáo |
+| TV1–4 ↔ TV5 | Lịch ngày lễ, cách bàn giao sự cố giữa vận hành và lễ tân, quyền xử lý và duyệt bồi thường, nguồn tính báo cáo |
 
 Dùng [mẫu hồ sơ thiết kế](docs/design/README.md) để ghi thực thể, bảng, phụ thuộc hàm và từ điển dữ liệu. Gắn bảng với mã UC/BR để cả nhóm review được lý do tồn tại của từng cột và ràng buộc.
 
