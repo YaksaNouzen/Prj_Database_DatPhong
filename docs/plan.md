@@ -4,7 +4,7 @@ Ngày 1 là ngày nhóm bắt đầu. Mục tiêu ngày 14 là có hồ sơ thi�
 
 | Mốc | Việc chính | Đầu ra |
 |---|---|---|
-| Ngày 1–2 | Duyệt 20 UC, 20 BR và các tình huống minh họa. Mỗi người vẽ ERD phần mình và ghi phụ thuộc hàm. | Chốt lúc giữ chỗ, quy tắc đổi phòng, cách tính tiền và phạm vi gộp hóa đơn. |
+| Ngày 1–2 | Rà soát use case, quy tắc và các tình huống minh họa trong đặc tả. Mỗi người vẽ ERD phần mình và ghi phụ thuộc hàm. | Cả nhóm thống nhất cách diễn giải lịch giữ, cọc, no-show, đổi phòng và các chặng tính tiền. |
 | Ngày 3–4 | Ghép ERD, chốt PK/FK, trạng thái và chủ sở hữu dữ liệu giữa các phần. | ERD tổng, lược đồ quan hệ, bằng chứng 3NF và bản đầu của từ điển dữ liệu. |
 | Ngày 5–7 | Viết DDL T-SQL theo thứ tự phụ thuộc. Viết và review ràng buộc, dữ liệu mẫu và các truy vấn nền. | Cấu trúc CSDL có thể dựng bằng SSMS. Có dữ liệu minh họa từ đặt phòng đến thanh toán. |
 | Ngày 8–10 | Hoàn thiện truy vấn, view, procedure, function, trigger, chỉ mục và quyền. | Các nghiệp vụ chính và báo cáo có thể minh họa trực tiếp từ SQL Server. |
@@ -28,7 +28,7 @@ Tích hợp ứng dụng và kiểm thử tự động được hoãn theo phạ
 
 ## Buổi chốt thiết kế
 
-1. Đi qua AC01–AC07 trong [đặc tả](requirements.md). Với mỗi thao tác ghi, thống nhất dữ liệu nào đổi cùng giao dịch và trạng thái khi một bước thất bại.
+1. Đi qua các tình huống trong [đặc tả](requirements.md), ưu tiên tranh lượt giữ, hết hạn giữ, cọc đến trễ, no-show, hoàn cọc và đổi phòng. Với mỗi thao tác ghi, thống nhất dữ liệu nào đổi cùng giao dịch và trạng thái khi một bước thất bại.
 2. Chốt ý nghĩa và chủ sở hữu của mã khách, phòng, yêu cầu đặt, lượt lưu trú và chặng phòng. Dùng các điểm giao trong [phân công](../CONTRIBUTING.md) để chốt khóa ngoại.
 3. TV2 và TV3 thống nhất cách chặn xếp trùng phòng và cách ghi lịch bảo trì. Một phương án nhóm có thể đánh giá sau khi duyệt mô hình là khóa theo mã phòng trong giao dịch bằng `sp_getapplock`, rồi kiểm tra lại lịch trước khi ghi. Với giao dịch chuyển phòng, dùng thứ tự lấy khóa cố định. [Tài liệu Microsoft](https://learn.microsoft.com/sql/relational-databases/system-stored-procedures/sp-getapplock-transact-sql)
 4. Cả nhóm ghép ERD, rà số lượng và loại quan hệ. Chọn các bảng để trình bày chứng minh 3NF, chốt thứ tự DDL và hoàn thiện [hồ sơ thiết kế](design/README.md).
