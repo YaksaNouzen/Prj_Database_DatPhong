@@ -6,21 +6,6 @@
 - [Kế hoạch 14 ngày và dàn ý báo cáo](docs/plan.md)
 - [Phân công 5 người, điểm tích hợp và quy trình Git](CONTRIBUTING.md)
 
-## Chạy khung trên Windows
-
-Cần Docker Desktop chạy Linux containers trên máy x86-64 và Docker Compose v2. Mở PowerShell từ thư mục repo. Tạo `.env` bằng lệnh đầu tiên khi chưa có tệp này, rồi thay hai mật khẩu mẫu trong tệp.
-
-```powershell
-Copy-Item .env.example .env
-docker compose up --build -d
-docker compose logs migrate
-Invoke-RestMethod http://localhost:8000/health
-```
-
-Sau khi migration chạy xong, `/health` trả về `sql_server: ok` và `redis: ok`. Mở [Swagger cục bộ](http://localhost:8000/docs). SSMS có thể kết nối `localhost,1433`, dùng SQL Server Authentication. Nếu máy có instance khác đang dùng cổng 1433, đổi cổng ở vế trái của ánh xạ trong Compose và dùng cổng tương ứng khi kết nối từ Windows. Để dừng môi trường phát triển, chạy `docker compose down`. Dữ liệu SQL Server được giữ trong volume.
-
-Tài khoản `sa` dùng để khởi tạo và chạy migration. Ứng dụng dùng login riêng `hotel_app`. Khi container đã tạo login, thay mật khẩu trong `.env` cần đồng bộ mật khẩu trong SQL Server. Cấu hình chứng chỉ mặc định dành cho máy phát triển.
-
 ## Thành phần
 
 | Thành phần | Phiên bản thiết lập trong khung |
