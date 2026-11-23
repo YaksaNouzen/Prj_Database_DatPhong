@@ -2,19 +2,19 @@
 
 ## Phạm vi
 
-Nhóm triển khai một khách sạn trên SQL Server. Mỗi yêu cầu đặt tối đa một phòng tại một thời điểm. Khách chọn hạng và khoảng ngày, lễ tân chọn phòng cụ thể. Nhóm giữ buồng phòng, bảo trì, kho vật tư và dịch vụ phát sinh. Hệ thống lập chứng từ nội bộ bằng VND và ghi nhận thanh toán mô phỏng. Kết nối cổng thanh toán và phát hành hóa đơn thuế nằm ngoài phạm vi bản hai tuần.
+Nhóm thiết kế CSDL cho một khách sạn trên SQL Server. Mỗi yêu cầu đặt tối đa một phòng tại một thời điểm. Khách chọn hạng và khoảng ngày, lễ tân chọn phòng cụ thể. Nhóm giữ buồng phòng, bảo trì, kho vật tư và dịch vụ phát sinh. CSDL lưu chứng từ nội bộ bằng VND và các khoản thu mô phỏng. Đầu ra hiện tại là đặc tả, mô hình dữ liệu, lược đồ đã chuẩn hóa, từ điển dữ liệu và các script SQL triển khai.
 
-Năm tác nhân **Khách hàng, Lễ tân, Nhân viên khách sạn, Thu ngân, Quản lý** là năm nhóm tương tác trong use case. Nhân viên khách sạn được phân quyền tác nghiệp theo nhiệm vụ buồng phòng, bảo trì hoặc kho. Quản lý, lễ tân và thu ngân cũng có thể dùng hồ sơ nhân viên chung. Vai trò trong ứng dụng và vai trò SQL Server được đặc tả riêng theo quyền cần dùng.
+Năm tác nhân **Khách hàng, Lễ tân, Nhân viên khách sạn, Thu ngân, Quản lý** mô tả ai tham gia từng nghiệp vụ và cần đọc hoặc cập nhật dữ liệu nào. Nhân viên khách sạn được phân công theo nhiệm vụ buồng phòng, bảo trì hoặc kho. Quản lý, lễ tân và thu ngân cũng có thể dùng hồ sơ nhân viên chung. Nhóm xác định quyền SQL Server theo thao tác cần được phép thực hiện.
 
 ## Luồng nghiệp vụ chính
 
 1. Khách tìm theo hạng, ngày đến và ngày đi rồi gửi yêu cầu. Hệ thống hiển thị tình trạng chờ xếp phòng.
-2. Lễ tân xếp phòng đúng hạng và xác nhận trong một giao dịch. Hệ thống kiểm tra lại lịch phòng và bảo trì ngay tại lúc ghi để ứng dụng có thể xử lý cạnh tranh.
+2. Lễ tân xếp phòng đúng hạng và xác nhận trong một giao dịch. CSDL kiểm tra lại lịch đặt và lịch bảo trì tại lúc ghi để chặn hai phiên xếp trùng phòng.
 3. Khi nhận phòng, lễ tân mở chặng lưu trú. Nhân viên xác nhận tình trạng phòng, ghi yêu cầu bảo trì và ghi dịch vụ tính phí phát sinh.
 4. Khi chuyển phòng lúc đang ở, lễ tân kết thúc chặng cũ và mở chặng mới. Hệ thống chốt hóa đơn phòng cũ, tạo hóa đơn nháp của phòng mới và giữ toàn bộ thay đổi trong cùng giao dịch SQL Server.
 5. Khi trả phòng, hệ thống chốt hóa đơn chặng cuối và tạo nhiệm vụ dọn. Thu ngân thu cho một hoặc nhiều hóa đơn còn nợ, rồi phát hành hóa đơn tổng theo các khoản đã phân bổ.
 
-Hóa đơn phòng tài liệu hóa tiền của một chặng ở một phòng. Hóa đơn tổng là chứng từ tổng hợp của một lần thu cho một hoặc nhiều hóa đơn phòng của cùng khách trong cùng lượt lưu trú. Ví dụ, khách đổi phòng từ A sang B. A có hóa đơn 1.200.000 đồng và B có hóa đơn 900.000 đồng. Khi khách trả cả hai trong một lần, hệ thống phát hành một hóa đơn tổng 2.100.000 đồng, với phân bổ tương ứng 1.200.000 và 900.000 đồng. Báo cáo dùng khoản thu thực tế cho chỉ tiêu tiền đã thu để tránh cộng hai cấp chứng từ.
+Hóa đơn phòng ghi tiền của một chặng ở một phòng. Hóa đơn tổng là chứng từ của một lần thu cho một hoặc nhiều hóa đơn phòng của cùng khách trong cùng lượt lưu trú. Ví dụ, khách đổi phòng từ A sang B. A có hóa đơn 1.200.000 đồng và B có hóa đơn 900.000 đồng. Khi khách trả cả hai trong một lần, hệ thống lập một hóa đơn tổng 2.100.000 đồng, với phân bổ tương ứng 1.200.000 và 900.000 đồng. Báo cáo dùng khoản thu thực tế cho chỉ tiêu tiền đã thu để tránh cộng hai cấp chứng từ.
 
 ## Danh sách use case
 
@@ -37,7 +37,7 @@ Hóa đơn phòng tài liệu hóa tiền của một chặng ở một phòng. 
 | UC15 | Thu ngân | Thu một phần hoặc toàn bộ nhiều hóa đơn trong cùng lượt |
 | UC16 | Thu ngân | Phát hành và tra cứu hóa đơn tổng theo lần thu |
 | UC17 | Quản lý | Quản lý hạng phòng, phòng, giá và danh mục dịch vụ |
-| UC18 | Quản lý | Phân công nhiệm vụ nhân viên theo quyền ứng dụng |
+| UC18 | Quản lý | Phân công nhiệm vụ nhân viên theo nhóm công việc |
 | UC19 | Quản lý | Xem công suất, doanh thu đã thu và mức sử dụng vật tư |
 | UC20 | Quản lý | Tra cứu nhật ký đổi trạng thái, chốt hóa đơn và thu tiền |
 
@@ -59,14 +59,16 @@ Hóa đơn phòng tài liệu hóa tiền của một chặng ở một phòng. 
 | BR12 | Nhập, xuất vật tư phải có số lượng dương và căn cứ. Xuất trong giao dịch, số lượng tồn sau xuất phải từ 0 trở lên. | TV3 |
 | BR13 | Chỉ dịch vụ hoặc vật tư có đánh dấu tính phí và đã xác nhận mới xuất hiện trên hóa đơn. Vật tư nội bộ vẫn có chứng từ kho. | TV3–4 |
 | BR14 | Phí phát sinh thuộc chặng đang sử dụng dịch vụ. Mỗi phát sinh được đưa vào hóa đơn một lần. | TV3–4 |
-| BR15 | Mỗi chặng có tối đa một hóa đơn phòng. Hóa đơn nháp có thể cập nhật. Sau khi chốt, ứng dụng khóa các dòng tiền. | TV4 |
+| BR15 | Mỗi chặng có tối đa một hóa đơn phòng. Hóa đơn nháp có thể cập nhật. CSDL bảo vệ các dòng tiền của hóa đơn đã chốt khỏi sửa trực tiếp. | TV4 |
 | BR16 | Khoản thu dương, phân bổ đúng khách và lượt. Tổng phân bổ bằng khoản thu và không vượt nợ từng hóa đơn. Lần gửi lại cùng mã giao dịch không thu lặp. | TV4 |
 | BR17 | Hóa đơn tổng giữ các phân bổ của lần thu. Tiền đã thu chỉ tính một lần trong báo cáo, kể cả khi hóa đơn phòng có nhiều lần thu. | TV4–5 |
 | BR18 | Khách chỉ đọc hoặc hủy đơn của mình. Chỉ đơn chờ xếp hoặc xác nhận mà chưa nhận phòng và chưa có khoản thu mới được khách hủy trong bản đầu. | TV1–2 |
 | BR19 | Nhân viên thực hiện công việc theo quyền được giao. Các thao tác nhạy cảm lưu người, thời điểm và thông tin thay đổi cần kiểm toán. | TV3–5 |
-| BR20 | Sau khi xác nhận hoặc hủy, đổi phòng hay thay đổi vùng bảo trì ảnh hưởng lịch, truy vấn tìm phòng mới phải phản ánh dữ liệu đã commit. SQL Server kiểm tra và quyết định khi ghi đặt phòng. | TV1–2–5 |
+| BR20 | Truy vấn tìm phòng tính từ lịch đặt và bảo trì đã commit trong SQL Server. Sau mỗi thay đổi ảnh hưởng lịch, kết quả truy vấn phản ánh trạng thái mới. | TV1–2–5 |
 
-## Ca nghiệm thu cần viết trước khi vẽ ERD
+## Tình huống dùng để đối chiếu khi vẽ ERD
+
+Các tình huống dưới đây mô tả dữ liệu và kết quả mong đợi để chốt quy tắc trước khi thiết kế.
 
 | Ca | Đầu vào | Kết quả |
 |---|---|---|
@@ -76,6 +78,6 @@ Hóa đơn phòng tài liệu hóa tiền của một chặng ở một phòng. 
 | AC04 · Hoàn tác khi chuyển | Tạo lỗi giả lập ở bước mở hóa đơn B hoặc có phiên khác chiếm B. | Chặng A và hóa đơn A giữ nguyên trạng trước khi chuyển. |
 | AC05 · Kho và dịch vụ | Xuất một vật tư dọn phòng và giao một dịch vụ tính phí. | Cả hai có nghiệp vụ tương ứng. Bảng kê phòng chỉ có dịch vụ tính phí. |
 | AC06 · Thu nhiều hóa đơn | Hai hóa đơn 1.200.000 và 900.000 đồng. Thu 1.500.000 lần đầu rồi thu 600.000 lần sau. | Hai lần thu có chứng từ tổng tương ứng. Nợ cuối bằng 0, tổng tiền thu 2.100.000, gửi lại mã lần đầu không tạo khoản thu mới. |
-| AC07 · Redis sau khi đặt | Làm nóng cache cho hạng có một phòng cuối, xác nhận đặt phòng đó rồi tìm lại. | Kết quả sau commit không còn báo phòng đó khả dụng. |
+| AC07 · Tra cứu sau khi xác nhận và hủy | Một hạng còn đúng một phòng phù hợp. Lễ tân xác nhận đặt phòng đó, sau đó hủy đơn hợp lệ. | Sau khi xác nhận, truy vấn trả về hết phòng cho kỳ đó. Sau khi hủy, truy vấn hiển thị có phòng trở lại nếu không còn lịch chặn khác. |
 
 Đặc tả ban đầu dùng giờ khách sạn 14:00 nhận phòng và 12:00 trả phòng theo Asia/Ho_Chi_Minh. Giả định một lượt lưu trú cho mỗi chứng từ tổng, hóa đơn nội bộ và quy tắc tính đêm chuyển phòng cần được cả nhóm duyệt trước khi tạo migration nghiệp vụ.
