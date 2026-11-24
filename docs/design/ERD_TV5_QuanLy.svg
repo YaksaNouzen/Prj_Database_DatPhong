@@ -1,0 +1,368 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2280" height="1440" viewBox="0 0 2280 1440">
+<rect width="2280" height="1440" fill="#ffffff"/>
+<text x="60.0" y="62.0" font-family="DejaVu Sans, sans-serif" font-size="36" font-weight="bold" fill="#2b3440" text-anchor="start" >SƠ ĐỒ ERD - PHẦN QUẢN LÝ (TV5)</text>
+<path d="M370 171.0 L520 171.0" fill="none" stroke="#2b3440" stroke-width="2"/>
+<line x1="379.0" y1="178.0" x2="379.0" y2="164.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="393.0" cy="171.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="406.0" y="194.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,1</text>
+<line x1="520.0" y1="162.0" x2="504.0" y2="171.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="520.0" y1="180.0" x2="504.0" y2="171.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="520.0" y1="171.0" x2="504.0" y2="171.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="491.0" cy="171.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="484.0" y="194.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,N</text>
+<text x="445.0" y="161.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >ap_dung_dip_le</text>
+<path d="M830 171.0 L980 171.0" fill="none" stroke="#2b3440" stroke-width="2"/>
+<line x1="830.0" y1="180.0" x2="846.0" y2="171.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="830.0" y1="162.0" x2="846.0" y2="171.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="830.0" y1="171.0" x2="846.0" y2="171.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="859.0" cy="171.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="866.0" y="194.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,N</text>
+<line x1="971.0" y1="164.0" x2="971.0" y2="178.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="962.0" y1="164.0" x2="962.0" y2="178.0" stroke="#2b3440" stroke-width="2"/>
+<text x="944.0" y="194.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >1,1</text>
+<text x="905.0" y="161.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >co_bang_gia</text>
+<path d="M1290 171.0 L1440 171.0" fill="none" stroke="#2b3440" stroke-width="2"/>
+<line x1="1299.0" y1="178.0" x2="1299.0" y2="164.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1308.0" y1="178.0" x2="1308.0" y2="164.0" stroke="#2b3440" stroke-width="2"/>
+<text x="1326.0" y="194.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >1,1</text>
+<line x1="1440.0" y1="162.0" x2="1424.0" y2="171.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1440.0" y1="180.0" x2="1424.0" y2="171.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1440.0" y1="171.0" x2="1424.0" y2="171.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="1411.0" cy="171.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="1404.0" y="194.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,N</text>
+<text x="1365.0" y="161.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >gom_cac_phong</text>
+<path d="M370 541.0 L520 541.0" fill="none" stroke="#2b3440" stroke-width="2"/>
+<line x1="379.0" y1="548.0" x2="379.0" y2="534.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="388.0" y1="548.0" x2="388.0" y2="534.0" stroke="#2b3440" stroke-width="2"/>
+<text x="406.0" y="564.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >1,1</text>
+<line x1="520.0" y1="532.0" x2="504.0" y2="541.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="520.0" y1="550.0" x2="504.0" y2="541.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="520.0" y1="541.0" x2="504.0" y2="541.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="491.0" cy="541.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="484.0" y="564.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,N</text>
+<text x="445.0" y="531.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >thuoc_vai_tro</text>
+<path d="M980 567.0 L830 567.0" fill="none" stroke="#2b3440" stroke-width="2"/>
+<line x1="971.0" y1="560.0" x2="971.0" y2="574.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="962.0" y1="560.0" x2="962.0" y2="574.0" stroke="#2b3440" stroke-width="2"/>
+<text x="944.0" y="590.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >1,1</text>
+<line x1="830.0" y1="576.0" x2="846.0" y2="567.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="830.0" y1="558.0" x2="846.0" y2="567.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="830.0" y1="567.0" x2="846.0" y2="567.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="859.0" cy="567.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="866.0" y="590.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,N</text>
+<text x="905.0" y="557.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >duoc_phan_cong</text>
+<path d="M980 619.0 L830 619.0" fill="none" stroke="#2b3440" stroke-width="2"/>
+<line x1="971.0" y1="612.0" x2="971.0" y2="626.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="962.0" y1="612.0" x2="962.0" y2="626.0" stroke="#2b3440" stroke-width="2"/>
+<text x="944.0" y="642.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >1,1</text>
+<line x1="830.0" y1="628.0" x2="846.0" y2="619.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="830.0" y1="610.0" x2="846.0" y2="619.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="830.0" y1="619.0" x2="846.0" y2="619.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="859.0" cy="619.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="866.0" y="642.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,N</text>
+<text x="905.0" y="609.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >giao_viec</text>
+<path d="M1040 480 L1040 425 L1170 425 L1170 480" fill="none" stroke="#2b3440" stroke-width="2"/>
+<line x1="1047.0" y1="471.0" x2="1033.0" y2="471.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="1040.0" cy="457.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="1018.0" y="449.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,1</text>
+<line x1="1179.0" y1="480.0" x2="1170.0" y2="464.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1161.0" y1="480.0" x2="1170.0" y2="464.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1170.0" y1="480.0" x2="1170.0" y2="464.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="1170.0" cy="451.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="1192.0" y="449.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,N</text>
+<text x="1105.0" y="417.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >quan_ly_truc_tiep</text>
+<path d="M1290 567.0 L1440 567.0" fill="none" stroke="#2b3440" stroke-width="2"/>
+<line x1="1299.0" y1="574.0" x2="1299.0" y2="560.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1308.0" y1="574.0" x2="1308.0" y2="560.0" stroke="#2b3440" stroke-width="2"/>
+<text x="1326.0" y="590.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >1,1</text>
+<line x1="1440.0" y1="558.0" x2="1424.0" y2="567.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1440.0" y1="576.0" x2="1424.0" y2="567.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1440.0" y1="567.0" x2="1424.0" y2="567.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="1411.0" cy="567.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="1404.0" y="590.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,N</text>
+<text x="1365.0" y="557.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >lap_dieu_chinh</text>
+<path d="M1290 645.0 L1440 645.0" fill="none" stroke="#2b3440" stroke-width="2"/>
+<line x1="1299.0" y1="652.0" x2="1299.0" y2="638.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="1313.0" cy="645.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="1326.0" y="668.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,1</text>
+<line x1="1440.0" y1="636.0" x2="1424.0" y2="645.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1440.0" y1="654.0" x2="1424.0" y2="645.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1440.0" y1="645.0" x2="1424.0" y2="645.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="1411.0" cy="645.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="1404.0" y="668.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,N</text>
+<text x="1365.0" y="635.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >duyet_dieu_chinh</text>
+<path d="M1270 480 L1270 450 L2055.0 450 L2055.0 480" fill="none" stroke="#2b3440" stroke-width="2"/>
+<line x1="1277.0" y1="471.0" x2="1263.0" y2="471.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="1270.0" cy="457.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="1292.0" y="449.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,1</text>
+<line x1="2064.0" y1="480.0" x2="2055.0" y2="464.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="2046.0" y1="480.0" x2="2055.0" y2="464.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="2055.0" y1="480.0" x2="2055.0" y2="464.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="2055.0" cy="451.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="2077.0" y="449.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,N</text>
+<text x="1595.0" y="442.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >thuc_hien_thao_tac</text>
+<path d="M2055.0 910 L2055.0 859.0 L1595.0 859.0 L1595.0 768" fill="none" stroke="#2b3440" stroke-width="2"/>
+<line x1="2062.0" y1="901.0" x2="2048.0" y2="901.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="2062.0" y1="892.0" x2="2048.0" y2="892.0" stroke="#2b3440" stroke-width="2"/>
+<text x="2077.0" y="879.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >1,1</text>
+<line x1="1586.0" y1="768.0" x2="1595.0" y2="784.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1604.0" y1="768.0" x2="1595.0" y2="784.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1595.0" y1="768.0" x2="1595.0" y2="784.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="1595.0" cy="797.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="1617.0" y="809.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,N</text>
+<text x="1825.0" y="849.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >dieu_chinh_hoa_don</text>
+<path d="M370 971.0 L520 971.0" fill="none" stroke="#2b3440" stroke-width="2"/>
+<line x1="379.0" y1="978.0" x2="379.0" y2="964.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="388.0" y1="978.0" x2="388.0" y2="964.0" stroke="#2b3440" stroke-width="2"/>
+<text x="406.0" y="994.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >1,1</text>
+<line x1="511.0" y1="964.0" x2="511.0" y2="978.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="497.0" cy="971.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="484.0" y="994.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,1</text>
+<text x="445.0" y="961.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >duoc_xu_ly</text>
+<path d="M830 971.0 L980 971.0" fill="none" stroke="#2b3440" stroke-width="2"/>
+<line x1="839.0" y1="978.0" x2="839.0" y2="964.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="853.0" cy="971.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="866.0" y="994.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,1</text>
+<line x1="980.0" y1="962.0" x2="964.0" y2="971.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="980.0" y1="980.0" x2="964.0" y2="971.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="980.0" y1="971.0" x2="964.0" y2="971.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="951.0" cy="971.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="944.0" y="994.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,N</text>
+<text x="905.0" y="961.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >kem_boi_thuong</text>
+<path d="M1440 997.0 L1290 997.0" fill="none" stroke="#2b3440" stroke-width="2"/>
+<line x1="1431.0" y1="990.0" x2="1431.0" y2="1004.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1422.0" y1="990.0" x2="1422.0" y2="1004.0" stroke="#2b3440" stroke-width="2"/>
+<text x="1404.0" y="1020.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >1,1</text>
+<line x1="1290.0" y1="1006.0" x2="1306.0" y2="997.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1290.0" y1="988.0" x2="1306.0" y2="997.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1290.0" y1="997.0" x2="1306.0" y2="997.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="1319.0" cy="997.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="1326.0" y="1020.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,N</text>
+<text x="1365.0" y="987.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >boi_thuong_don</text>
+<path d="M1040 690 L1040 765 L675.0 765 L675.0 910" fill="none" stroke="#2b3440" stroke-width="2"/>
+<line x1="1033.0" y1="699.0" x2="1047.0" y2="699.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1033.0" y1="708.0" x2="1047.0" y2="708.0" stroke="#2b3440" stroke-width="2"/>
+<text x="1062.0" y="731.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >1,1</text>
+<line x1="684.0" y1="910.0" x2="675.0" y2="894.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="666.0" y1="910.0" x2="675.0" y2="894.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="675.0" y1="910.0" x2="675.0" y2="894.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="675.0" cy="881.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="697.0" y="879.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,N</text>
+<text x="857.5" y="757.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >ra_quyet_dinh</text>
+<path d="M1210 690 L1210 910" fill="none" stroke="#2b3440" stroke-width="2"/>
+<line x1="1203.0" y1="699.0" x2="1217.0" y2="699.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1203.0" y1="708.0" x2="1217.0" y2="708.0" stroke="#2b3440" stroke-width="2"/>
+<text x="1232.0" y="731.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >1,1</text>
+<line x1="1219.0" y1="910.0" x2="1210.0" y2="894.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1201.0" y1="910.0" x2="1210.0" y2="894.0" stroke="#2b3440" stroke-width="2"/>
+<line x1="1210.0" y1="910.0" x2="1210.0" y2="894.0" stroke="#2b3440" stroke-width="2"/>
+<circle cx="1210.0" cy="881.0" r="6" fill="#fff" stroke="#2b3440" stroke-width="2"/>
+<text x="1232.0" y="879.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >0,N</text>
+<text x="1280.0" y="805.0" font-family="DejaVu Sans, sans-serif" font-size="14" font-weight="normal" fill="#333" text-anchor="middle" >duyet_boi_thuong</text>
+<rect x="60" y="110" width="310" height="210" rx="7" fill="#ffffff" stroke="#1b3a5c" stroke-width="2" />
+<path d="M60 150 V117 Q60 110 67 110 H363 Q370 110 370 117 V150 Z" fill="#1b3a5c"/>
+<text x="215.0" y="137.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="bold" fill="#fff" text-anchor="middle" >DIP_LE</text>
+<line x1="130" y1="150" x2="130" y2="320" stroke="#9aa5b1" stroke-width="1"/>
+<text x="95.0" y="176.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >PK</text>
+<text x="144.0" y="176.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="bold" fill="#222" text-anchor="start" >ma_dip_le</text>
+<text x="144.0" y="202.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ten_dip_le</text>
+<text x="144.0" y="228.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >tu_ngay</text>
+<text x="144.0" y="254.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >den_ngay</text>
+<text x="144.0" y="280.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ty_le_coc</text>
+<text x="144.0" y="306.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ghi_chu</text>
+<rect x="520" y="110" width="310" height="210" rx="7" fill="#ffffff" stroke="#1b3a5c" stroke-width="2" />
+<path d="M520 150 V117 Q520 110 527 110 H823 Q830 110 830 117 V150 Z" fill="#1b3a5c"/>
+<text x="675.0" y="137.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="bold" fill="#fff" text-anchor="middle" >BANG_GIA_HANG</text>
+<line x1="590" y1="150" x2="590" y2="320" stroke="#9aa5b1" stroke-width="1"/>
+<text x="555.0" y="176.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >PK</text>
+<text x="604.0" y="176.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="bold" fill="#222" text-anchor="start" >ma_bang_gia</text>
+<text x="555.0" y="202.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="604.0" y="202.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_hang</text>
+<text x="555.0" y="228.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="604.0" y="228.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_dip_le</text>
+<text x="604.0" y="254.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >hieu_luc_tu</text>
+<text x="604.0" y="280.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >hieu_luc_den</text>
+<text x="604.0" y="306.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >gia_moi_dem</text>
+<rect x="980" y="110" width="310" height="184" rx="7" fill="#ffffff" stroke="#1b3a5c" stroke-width="2" />
+<path d="M980 150 V117 Q980 110 987 110 H1283 Q1290 110 1290 117 V150 Z" fill="#1b3a5c"/>
+<text x="1135.0" y="137.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="bold" fill="#fff" text-anchor="middle" >HANG_PHONG</text>
+<line x1="1050" y1="150" x2="1050" y2="294" stroke="#9aa5b1" stroke-width="1"/>
+<text x="1015.0" y="176.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >PK</text>
+<text x="1064.0" y="176.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="bold" fill="#222" text-anchor="start" >ma_hang</text>
+<text x="1015.0" y="202.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >UK</text>
+<text x="1064.0" y="202.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ten_hang</text>
+<text x="1064.0" y="228.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >gia_niem_yet</text>
+<text x="1064.0" y="254.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >suc_chua_toi_da</text>
+<text x="1064.0" y="280.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >trang_thai</text>
+<rect x="1440" y="110" width="310" height="158" rx="7" fill="#ffffff" stroke="#1b3a5c" stroke-width="2" />
+<path d="M1440 150 V117 Q1440 110 1447 110 H1743 Q1750 110 1750 117 V150 Z" fill="#1b3a5c"/>
+<text x="1595.0" y="137.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="bold" fill="#fff" text-anchor="middle" >PHONG</text>
+<line x1="1510" y1="150" x2="1510" y2="268" stroke="#9aa5b1" stroke-width="1"/>
+<text x="1475.0" y="176.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >PK</text>
+<text x="1524.0" y="176.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="bold" fill="#222" text-anchor="start" >ma_phong</text>
+<text x="1475.0" y="202.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="1524.0" y="202.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_hang</text>
+<text x="1475.0" y="228.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >UK</text>
+<text x="1524.0" y="228.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >so_phong</text>
+<text x="1524.0" y="254.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >tang</text>
+<rect x="1900" y="110" width="310" height="184" rx="7" fill="#ffffff" stroke="#1b3a5c" stroke-width="2" />
+<path d="M1900 150 V117 Q1900 110 1907 110 H2203 Q2210 110 2210 117 V150 Z" fill="#1b3a5c"/>
+<text x="2055.0" y="137.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="bold" fill="#fff" text-anchor="middle" >DICH_VU (TV3/TV5)</text>
+<line x1="1970" y1="150" x2="1970" y2="294" stroke="#9aa5b1" stroke-width="1"/>
+<text x="1935.0" y="176.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >PK</text>
+<text x="1984.0" y="176.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="bold" fill="#222" text-anchor="start" >ma_dich_vu</text>
+<text x="1984.0" y="202.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ten_dich_vu</text>
+<text x="1984.0" y="228.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >don_vi_tinh</text>
+<text x="1984.0" y="254.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >tinh_phi</text>
+<text x="1984.0" y="280.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >don_gia_hien_hanh</text>
+<rect x="60" y="480" width="310" height="184" rx="7" fill="#ffffff" stroke="#1b3a5c" stroke-width="2" />
+<path d="M60 520 V487 Q60 480 67 480 H363 Q370 480 370 487 V520 Z" fill="#1b3a5c"/>
+<text x="215.0" y="507.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="bold" fill="#fff" text-anchor="middle" >VAI_TRO</text>
+<line x1="130" y1="520" x2="130" y2="664" stroke="#9aa5b1" stroke-width="1"/>
+<text x="95.0" y="546.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >PK</text>
+<text x="144.0" y="546.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="bold" fill="#222" text-anchor="start" >ma_vai_tro</text>
+<text x="95.0" y="572.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >UK</text>
+<text x="144.0" y="572.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ten_vai_tro</text>
+<text x="144.0" y="598.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >nhom_cong_viec</text>
+<text x="95.0" y="624.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >UK</text>
+<text x="144.0" y="624.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ten_role_sql</text>
+<text x="144.0" y="650.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >mo_ta</text>
+<rect x="520" y="480" width="310" height="236" rx="7" fill="#ffffff" stroke="#1b3a5c" stroke-width="2" />
+<path d="M520 520 V487 Q520 480 527 480 H823 Q830 480 830 487 V520 Z" fill="#1b3a5c"/>
+<text x="675.0" y="507.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="bold" fill="#fff" text-anchor="middle" >PHAN_CONG</text>
+<line x1="590" y1="520" x2="590" y2="716" stroke="#9aa5b1" stroke-width="1"/>
+<text x="555.0" y="546.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >PK</text>
+<text x="604.0" y="546.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="bold" fill="#222" text-anchor="start" >ma_phan_cong</text>
+<text x="555.0" y="572.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="604.0" y="572.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_nhan_vien</text>
+<text x="555.0" y="598.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="604.0" y="598.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_vai_tro</text>
+<text x="555.0" y="624.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="604.0" y="624.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_nguoi_giao</text>
+<text x="604.0" y="650.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >tu_ngay</text>
+<text x="604.0" y="676.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >den_ngay</text>
+<text x="604.0" y="702.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >quyen_dieu_chinh</text>
+<rect x="980" y="480" width="310" height="210" rx="7" fill="#ffffff" stroke="#1b3a5c" stroke-width="2" />
+<path d="M980 520 V487 Q980 480 987 480 H1283 Q1290 480 1290 487 V520 Z" fill="#1b3a5c"/>
+<text x="1135.0" y="507.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="bold" fill="#fff" text-anchor="middle" >NHAN_VIEN</text>
+<line x1="1050" y1="520" x2="1050" y2="690" stroke="#9aa5b1" stroke-width="1"/>
+<text x="1015.0" y="546.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >PK</text>
+<text x="1064.0" y="546.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="bold" fill="#222" text-anchor="start" >ma_nhan_vien</text>
+<text x="1015.0" y="572.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="1064.0" y="572.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_quan_ly</text>
+<text x="1064.0" y="598.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ho_ten</text>
+<text x="1015.0" y="624.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >UK</text>
+<text x="1064.0" y="624.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >so_dien_thoai</text>
+<text x="1015.0" y="650.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >UK</text>
+<text x="1064.0" y="650.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >sql_login</text>
+<text x="1064.0" y="676.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >trang_thai</text>
+<rect x="1440" y="480" width="310" height="288" rx="7" fill="#ffffff" stroke="#1b3a5c" stroke-width="2" />
+<path d="M1440 520 V487 Q1440 480 1447 480 H1743 Q1750 480 1750 487 V520 Z" fill="#1b3a5c"/>
+<text x="1595.0" y="507.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="bold" fill="#fff" text-anchor="middle" >DIEU_CHINH_HOA_DON</text>
+<line x1="1510" y1="520" x2="1510" y2="768" stroke="#9aa5b1" stroke-width="1"/>
+<text x="1475.0" y="546.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >PK</text>
+<text x="1524.0" y="546.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="bold" fill="#222" text-anchor="start" >ma_dieu_chinh</text>
+<text x="1475.0" y="572.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="1524.0" y="572.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_hoa_don_phong</text>
+<text x="1475.0" y="598.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="1524.0" y="598.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_nguoi_lap</text>
+<text x="1475.0" y="624.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="1524.0" y="624.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_nguoi_duyet</text>
+<text x="1524.0" y="650.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >so_tien_dieu_chinh</text>
+<text x="1524.0" y="676.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ly_do</text>
+<text x="1524.0" y="702.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >thoi_diem_lap</text>
+<text x="1524.0" y="728.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >thoi_diem_duyet</text>
+<text x="1524.0" y="754.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >trang_thai</text>
+<rect x="1900" y="480" width="310" height="288" rx="7" fill="#ffffff" stroke="#1b3a5c" stroke-width="2" />
+<path d="M1900 520 V487 Q1900 480 1907 480 H2203 Q2210 480 2210 487 V520 Z" fill="#1b3a5c"/>
+<text x="2055.0" y="507.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="bold" fill="#fff" text-anchor="middle" >NHAT_KY_KIEM_TOAN</text>
+<line x1="1970" y1="520" x2="1970" y2="768" stroke="#9aa5b1" stroke-width="1"/>
+<text x="1935.0" y="546.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >PK</text>
+<text x="1984.0" y="546.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="bold" fill="#222" text-anchor="start" >ma_nhat_ky</text>
+<text x="1935.0" y="572.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="1984.0" y="572.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_nhan_vien</text>
+<text x="1984.0" y="598.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >sql_login</text>
+<text x="1984.0" y="624.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ten_bang</text>
+<text x="1984.0" y="650.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_ban_ghi</text>
+<text x="1984.0" y="676.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >thao_tac</text>
+<text x="1984.0" y="702.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >gia_tri_cu</text>
+<text x="1984.0" y="728.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >gia_tri_moi</text>
+<text x="1984.0" y="754.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >thoi_diem</text>
+<rect x="60" y="910" width="310" height="210" rx="7" fill="#e9ecef" stroke="#7d8a99" stroke-width="2" stroke-dasharray="7 5"/>
+<path d="M60 950 V917 Q60 910 67 910 H363 Q370 910 370 917 V950 Z" fill="#7d8a99"/>
+<text x="215.0" y="937.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="bold" fill="#fff" text-anchor="middle" >SU_CO (TV3)</text>
+<line x1="130" y1="950" x2="130" y2="1120" stroke="#9aa5b1" stroke-width="1"/>
+<text x="95.0" y="976.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >PK</text>
+<text x="144.0" y="976.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="bold" fill="#222" text-anchor="start" >ma_su_co</text>
+<text x="95.0" y="1002.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="144.0" y="1002.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_phong</text>
+<text x="95.0" y="1028.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="144.0" y="1028.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_chang</text>
+<text x="95.0" y="1054.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="144.0" y="1054.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_nhan_vien</text>
+<text x="144.0" y="1080.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >mo_ta</text>
+<text x="144.0" y="1106.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >trang_thai</text>
+<rect x="520" y="910" width="310" height="210" rx="7" fill="#ffffff" stroke="#1b3a5c" stroke-width="2" />
+<path d="M520 950 V917 Q520 910 527 910 H823 Q830 910 830 917 V950 Z" fill="#1b3a5c"/>
+<text x="675.0" y="937.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="bold" fill="#fff" text-anchor="middle" >QUYET_DINH_SU_CO</text>
+<line x1="590" y1="950" x2="590" y2="1120" stroke="#9aa5b1" stroke-width="1"/>
+<text x="555.0" y="976.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >PK</text>
+<text x="604.0" y="976.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="bold" fill="#222" text-anchor="start" >ma_quyet_dinh</text>
+<text x="555.0" y="1002.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK,UK</text>
+<text x="604.0" y="1002.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_su_co</text>
+<text x="555.0" y="1028.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="604.0" y="1028.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_quan_ly</text>
+<text x="604.0" y="1054.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >phuong_an</text>
+<text x="604.0" y="1080.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >noi_dung</text>
+<text x="604.0" y="1106.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >thoi_diem_quyet_dinh</text>
+<rect x="980" y="910" width="310" height="288" rx="7" fill="#ffffff" stroke="#1b3a5c" stroke-width="2" />
+<path d="M980 950 V917 Q980 910 987 910 H1283 Q1290 910 1290 917 V950 Z" fill="#1b3a5c"/>
+<text x="1135.0" y="937.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="bold" fill="#fff" text-anchor="middle" >BOI_THUONG</text>
+<line x1="1050" y1="950" x2="1050" y2="1198" stroke="#9aa5b1" stroke-width="1"/>
+<text x="1015.0" y="976.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >PK</text>
+<text x="1064.0" y="976.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="bold" fill="#222" text-anchor="start" >ma_boi_thuong</text>
+<text x="1015.0" y="1002.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="1064.0" y="1002.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_don</text>
+<text x="1015.0" y="1028.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="1064.0" y="1028.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_quyet_dinh</text>
+<text x="1015.0" y="1054.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="1064.0" y="1054.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_nguoi_duyet</text>
+<text x="1064.0" y="1080.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >hinh_thuc</text>
+<text x="1064.0" y="1106.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >gia_tri</text>
+<text x="1064.0" y="1132.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ly_do</text>
+<text x="1064.0" y="1158.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >thoi_diem_duyet</text>
+<text x="1064.0" y="1184.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >trang_thai</text>
+<rect x="1440" y="910" width="310" height="184" rx="7" fill="#e9ecef" stroke="#7d8a99" stroke-width="2" stroke-dasharray="7 5"/>
+<path d="M1440 950 V917 Q1440 910 1447 910 H1743 Q1750 910 1750 917 V950 Z" fill="#7d8a99"/>
+<text x="1595.0" y="937.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="bold" fill="#fff" text-anchor="middle" >DON_DAT_PHONG (TV2)</text>
+<line x1="1510" y1="950" x2="1510" y2="1094" stroke="#9aa5b1" stroke-width="1"/>
+<text x="1475.0" y="976.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >PK</text>
+<text x="1524.0" y="976.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="bold" fill="#222" text-anchor="start" >ma_don</text>
+<text x="1475.0" y="1002.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="1524.0" y="1002.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_luot</text>
+<text x="1475.0" y="1028.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="1524.0" y="1028.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_hang</text>
+<text x="1475.0" y="1054.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="1524.0" y="1054.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_phong_du_kien</text>
+<text x="1524.0" y="1080.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >trang_thai_don</text>
+<rect x="1900" y="910" width="310" height="184" rx="7" fill="#e9ecef" stroke="#7d8a99" stroke-width="2" stroke-dasharray="7 5"/>
+<path d="M1900 950 V917 Q1900 910 1907 910 H2203 Q2210 910 2210 917 V950 Z" fill="#7d8a99"/>
+<text x="2055.0" y="937.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="bold" fill="#fff" text-anchor="middle" >HOA_DON_PHONG (TV4)</text>
+<line x1="1970" y1="950" x2="1970" y2="1094" stroke="#9aa5b1" stroke-width="1"/>
+<text x="1935.0" y="976.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >PK</text>
+<text x="1984.0" y="976.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="bold" fill="#222" text-anchor="start" >ma_hoa_don_phong</text>
+<text x="1935.0" y="1002.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK,UK</text>
+<text x="1984.0" y="1002.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_chang</text>
+<text x="1935.0" y="1028.0" font-family="DejaVu Sans, sans-serif" font-size="13" font-weight="bold" fill="#222" text-anchor="middle" >FK</text>
+<text x="1984.0" y="1028.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >ma_don</text>
+<text x="1984.0" y="1054.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >tong_tien</text>
+<text x="1984.0" y="1080.0" font-family="DejaVu Sans, sans-serif" font-size="16" font-weight="normal" fill="#222" text-anchor="start" >con_no</text>
+<rect x="60" y="1245" width="46" height="24" fill="#fff" stroke="#1b3a5c" stroke-width="2"/>
+<text x="120.0" y="1263.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="normal" fill="#222" text-anchor="start" >Thực thể lõi TV5 (Quản lý)</text>
+<rect x="60" y="1281" width="46" height="24" fill="#e9ecef" stroke="#7d8a99" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="120.0" y="1299.0" font-family="DejaVu Sans, sans-serif" font-size="17" font-weight="normal" fill="#222" text-anchor="start" >Thực thể ranh giới (TV2, TV3, TV4)</text>
+<text x="60.0" y="1342.0" font-family="DejaVu Sans, sans-serif" font-size="15" font-weight="normal" fill="#555" text-anchor="start" >Ghi chú: BANG_GIA_HANG dùng khoảng hiệu lực nửa mở [hieu_luc_tu, hieu_luc_den); ma_dip_le NULL là giá ngày thường. Sửa giá chỉ áp dụng cho nghiệp vụ phát sinh sau (BR09).</text>
+<text x="60.0" y="1368.0" font-family="DejaVu Sans, sans-serif" font-size="15" font-weight="normal" fill="#555" text-anchor="start" >PHAN_CONG nối NHAN_VIEN – VAI_TRO (n–n) theo thời gian; quyen_dieu_chinh đánh dấu trưởng bộ phận được giao quyền điều chỉnh (BR33). NHAN_VIEN.ma_quan_ly là quan hệ đệ quy (CTE đệ quy).</text>
+<text x="60.0" y="1394.0" font-family="DejaVu Sans, sans-serif" font-size="15" font-weight="normal" fill="#555" text-anchor="start" >NHAT_KY_KIEM_TOAN ghi bằng trigger audit; ten_bang + ma_ban_ghi trỏ đa hình nên không đặt FK. Báo cáo công suất, doanh thu, vật tư (UC19) suy ra bằng view/function, không lưu bảng riêng.</text>
+<text x="60.0" y="1420.0" font-family="DejaVu Sans, sans-serif" font-size="15" font-weight="normal" fill="#555" text-anchor="start" >Quan hệ HANG_PHONG/PHONG với DON_DAT_PHONG, LUOT_GIU_PHONG, CHANG_LUU_TRU, SU_CO, VAN_HANH_PHONG đã thể hiện ở ERD TV2, TV3; tên và cột chưa chốt là đề xuất thiết kế.</text>
+</svg>
