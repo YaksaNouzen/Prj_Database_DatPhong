@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERD Tổng Thể Hệ Thống Đặt Phòng Khách Sạn (TV1–TV5)</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --border: #e2e8f0;
+      --ink: #0f172a;
+      --muted: #475569;
+      --tv1: #0f766e; --tv1-bg: #f0fdfa;
+      --tv2: #103766; --tv2-bg: #eff6ff;
+      --tv3: #b45309; --tv3-bg: #fffbeb;
+      --tv4: #047857; --tv4-bg: #ecfdf5;
+      --tv5: #4338ca; --tv5-bg: #eef2ff;
+      --view: #7c3aed; --view-bg: #f5f3ff;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg); color: var(--ink);
+      height: 100%; overflow: hidden;
+    }
+    .app { display: flex; flex-direction: column; height: 100vh; width: 100%; }
+    .topbar {
+      background: var(--panel); border-bottom: 1px solid var(--border);
+      padding: 10px 16px; display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: 10px; z-index: 20;
+    }
+    .brand-title { font-size: 16px; font-weight: 700; color: #103766; margin: 0; }
+    .brand-sub { font-size: 12px; color: var(--muted); }
+    .flow-tabs { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .tab-btn {
+      border: 1px solid var(--border); background: #f1f5f9; color: #334155;
+      padding: 6px 11px; border-radius: 999px; font-size: 12px; font-weight: 600;
+      cursor: pointer; transition: all 0.15s ease;
+    }
+    .tab-btn:hover { background: #e2e8f0; }
+    .tab-btn.active {
+      background: #103766; color: #ffffff; border-color: #103766;
+      box-shadow: 0 2px 6px rgba(16, 55, 102, 0.25);
+    }
+
+    .subbar {
+      background: #ffffff; border-bottom: 1px solid var(--border);
+      padding: 7px 16px; display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: 8px; z-index: 15;
+    }
+    .owner-filters { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
+      border: 1px solid var(--border); background: #ffffff; color: #334155;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .chip .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+    .chip.active { background: #0f172a; color: #ffffff; border-color: #0f172a; }
+    .zoom-controls { display: flex; align-items: center; gap: 6px; }
+    .zbtn {
+      border: 1px solid var(--border); background: #f8fafc; color: #0f172a;
+      padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: 600;
+      cursor: pointer;
+    }
+    .zbtn:hover { background: #e2e8f0; }
+    .zoom-label { font-size: 12px; font-weight: 600; color: var(--muted); min-width: 44px; text-align: center; }
+
+    .workspace { flex: 1; display: flex; min-height: 0; position: relative; }
+    .canvas-area {
+      flex: 1; position: relative; overflow: hidden;
+      background-color: #f8fafc;
+      background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+      background-size: 20px 20px;
+      cursor: grab;
+    }
+    .canvas-area:active { cursor: grabbing; }
+    #erd-svg { width: 100%; height: 100%; display: block; user-select: none; }
+
+    .flow-banner {
+      position: absolute; bottom: 12px; left: 12px; max-width: 560px;
+      background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(8px);
+      border: 1px solid #cbd5e1; border-left: 4px solid #103766;
+      border-radius: 10px; padding: 10px 14px; z-index: 10;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.10);
+      display: none;
+    }
+    .flow-banner.visible { display: block; }
+    .flow-banner-title { font-size: 13px; font-weight: 700; color: #103766; margin-bottom: 4px; }
+    .flow-banner-desc { font-size: 12px; line-height: 1.5; color: #334155; margin-bottom: 8px; }
+    .step-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+    .step-pill {
+      font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 999px;
+      border: 1px solid #cbd5e1; background: #f8fafc; color: #334155; cursor: pointer;
+    }
+    .step-pill.active { background: #103766; color: #ffffff; border-color: #103766; }
+    .step-detail {
+      margin-top: 7px; padding-top: 7px; border-top: 1px dashed #cbd5e1;
+      font-size: 12px; color: #0f172a; line-height: 1.45;
+    }
+
+    .inspector {
+      width: 335px; max-width: 36vw; background: var(--panel);
+      border-left: 1px solid var(--border); display: flex; flex-direction: column;
+      overflow-y: auto; padding: 14px 16px; gap: 12px; z-index: 12;
+    }
+    .ins-header { display: flex; flex-direction: column; gap: 4px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+    .ins-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+    .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; color: #ffffff; }
+    .badge-type { background: #e2e8f0; color: #334155; }
+    .ins-title { font-size: 16px; font-weight: 700; color: var(--ink); word-break: break-word; }
+    .ins-note {
+      font-size: 12px; line-height: 1.5; color: #334155;
+      background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 9px 10px;
+    }
+    .ins-section-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--muted); margin-bottom: 6px;
+    }
+    .col-list { display: flex; flex-direction: column; gap: 4px; }
+    .col-row {
+      display: flex; align-items: center; gap: 8px; font-size: 12px;
+      padding: 4px 7px; border-radius: 6px; background: #f8fafc;
+    }
+    .col-key {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 10px; font-weight: 700; min-width: 42px; text-align: center;
+      padding: 1px 4px; border-radius: 4px; background: #e2e8f0; color: #1e293b;
+    }
+    .col-key.pk { background: #dbeafe; color: #1e40af; }
+    .col-key.fk { background: #fef3c7; color: #92400e; }
+    .col-key.uk { background: #ede9fe; color: #5b21b6; }
+    .col-name { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: #0f172a; }
+    .rel-list { display: flex; flex-direction: column; gap: 6px; }
+    .rel-item {
+      font-size: 12px; line-height: 1.4; padding: 6px 8px;
+      border-radius: 6px; border: 1px solid var(--border); background: #ffffff;
+    }
+    .rel-item strong { color: #103766; }
+
+    .entity-g { cursor: pointer; transition: opacity 0.18s ease; }
+    .entity-g.dimmed { opacity: 0.16; }
+    .entity-g.selected .box-border { stroke-width: 2.8 !important; filter: drop-shadow(0 4px 10px rgba(16, 55, 102, 0.25)); }
+    .edge-g { transition: opacity 0.18s ease; }
+    .edge-g.dimmed { opacity: 0.1; }
+    .edge-g.highlight .edge-path { stroke: #103766; stroke-width: 2.2; }
+    .edge-path { fill: none; stroke: #475569; stroke-width: 1.35; stroke-linecap: round; stroke-linejoin: round; }
+    .edge-path.spine-edge { stroke: #103766; stroke-width: 2.1; }
+    .edge-path.view-edge { stroke: #7c3aed; stroke-dasharray: 6 4; stroke-width: 1.6; }
+    .edge-label-bg { fill: #ffffff; fill-opacity: 0.92; }
+    .edge-label { font-family: ui-monospace, monospace; font-size: 10.5px; fill: #1e293b; }
+    .card-label { font-family: ui-monospace, monospace; font-size: 10.5px; font-weight: 700; fill: #0f172a; }
+
+    @media (max-width: 900px) {
+      .workspace { flex-direction: column; }
+      .inspector { width: 100%; max-width: 100%; height: 250px; border-left: none; border-top: 1px solid var(--border); }
+      .flow-banner { max-width: calc(100% - 24px); }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div>
+      <h1 class="brand-title">ERD TỔNG THỂ — KHÁCH HÀNG → LƯỢT → ĐƠN → CHẶNG → HÓA ĐƠN → THANH TOÁN</h1>
+      <div class="brand-sub">28 bảng vật lý (mỗi bảng 1 lần) + 2 View tổng hợp · Bố cục theo đúng luồng nghiệp vụ chính từ trái sang phải</div>
+    </div>
+    <div class="flow-tabs" id="flow-tabs" role="tablist">
+      <button type="button" class="tab-btn active" data-flow="all">Toàn bộ ERD</button>
+      <button type="button" class="tab-btn" data-flow="main">★ Luồng chính (6 bước)</button>
+      <button type="button" class="tab-btn" data-flow="schedule">1. Lịch phòng (VIEW)</button>
+      <button type="button" class="tab-btn" data-flow="change">2. Đổi phòng (C → D)</button>
+      <button type="button" class="tab-btn" data-flow="checkout">3. Cọc, HĐ Tổng &amp; Check-out</button>
+      <button type="button" class="tab-btn" data-flow="inventory">4. Kho &amp; Phí phát sinh</button>
+      <button type="button" class="tab-btn" data-flow="audit">5. Sự cố, Điều chỉnh &amp; Audit</button>
+    </div>
+  </header>
+
+  <div class="subbar">
+    <div class="owner-filters" id="owner-filters">
+      <button type="button" class="chip active" data-owner="ALL">Tất cả (30)</button>
+      <button type="button" class="chip" data-owner="TV1"><span class="dot" style="background:var(--tv1)"></span>TV1 Khách hàng (3)</button>
+      <button type="button" class="chip" data-owner="TV2"><span class="dot" style="background:var(--tv2)"></span>TV2 Lễ tân (5)</button>
+      <button type="button" class="chip" data-owner="TV3"><span class="dot" style="background:var(--tv3)"></span>TV3 Vận hành (7)</button>
+      <button type="button" class="chip" data-owner="TV4"><span class="dot" style="background:var(--tv4)"></span>TV4 Thu ngân (9)</button>
+      <button type="button" class="chip" data-owner="TV5"><span class="dot" style="background:var(--tv5)"></span>TV5 Quản lý (4)</button>
+      <button type="button" class="chip" data-owner="VIEW"><span class="dot" style="background:var(--view)"></span>&lt;&lt;VIEW&gt;&gt; (2)</button>
+    </div>
+    <div class="zoom-controls">
+      <button type="button" class="zbtn" id="btn-zoom-out">−</button>
+      <span class="zoom-label" id="zoom-pct">100%</span>
+      <button type="button" class="zbtn" id="btn-zoom-in">+</button>
+      <button type="button" class="zbtn" id="btn-fit">Vừa khung</button>
+    </div>
+  </div>
+
+  <div class="workspace">
+    <div class="canvas-area" id="canvas-area">
+      <div class="flow-banner" id="flow-banner">
+        <div class="flow-banner-title" id="fb-title"></div>
+        <div class="flow-banner-desc" id="fb-desc"></div>
+        <div class="step-pills" id="fb-steps"></div>
+        <div class="step-detail" id="fb-step-detail"></div>
+      </div>
+      <svg id="erd-svg" width="100%" height="100%" role="img" aria-label="Sơ đồ ERD tổng thể theo luồng chính">
+        <g id="viewport">
+          <g id="lanes-layer"></g>
+          <g id="edges-layer"></g>
+          <g id="nodes-layer"></g>
+        </g>
+      </svg>
+    </div>
+
+    <aside class="inspector" id="inspector">
+      <div class="ins-header">
+        <div class="ins-badges" id="ins-badges"></div>
+        <div class="ins-title" id="ins-title">DON_DAT_PHONG</div>
+      </div>
+      <div class="ins-note" id="ins-note"></div>
+      <div>
+        <div class="ins-section-title">Cấu trúc thuộc tính (PK / UK / FK)</div>
+        <div class="col-list" id="ins-cols"></div>
+      </div>
+      <div>
+        <div class="ins-section-title">Quan hệ Crow's Foot liên kết</div>
+        <div class="rel-list" id="ins-rels"></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+const OWNER_META = {
+  TV1:  { name: 'TV1 · Khách hàng', color: '#0f766e', bg: '#f0fdfa' },
+  TV2:  { name: 'TV2 · Lễ tân', color: '#103766', bg: '#eff6ff' },
+  TV3:  { name: 'TV3 · Nhân viên / Vận hành', color: '#b45309', bg: '#fffbeb' },
+  TV4:  { name: 'TV4 · Thu ngân', color: '#047857', bg: '#ecfdf5' },
+  TV5:  { name: 'TV5 · Quản lý', color: '#4338ca', bg: '#eef2ff' },
+  VIEW: { name: 'VIEW tổng hợp', color: '#7c3aed', bg: '#f5f3ff' }
+};
+
+// 6 stage columns aligned strictly left-to-right along the main spine:
+// ① Khách hàng -> ② Lượt lưu trú -> ③ Đơn đặt phòng -> ④ Chặng lưu trú -> ⑤ Hóa đơn phòng -> ⑥ Thanh toán
+const STAGES = [
+  { num: '1', title: 'KHÁCH HÀNG', x: 25, w: 260, color: '#0f766e' },
+  { num: '2', title: 'LƯỢT LƯU TRÚ', x: 370, w: 260, color: '#103766' },
+  { num: '3', title: 'ĐƠN ĐẶT PHÒNG', x: 715, w: 270, color: '#103766' },
+  { num: '4', title: 'CHẶNG LƯU TRÚ', x: 1070, w: 270, color: '#103766' },
+  { num: '5', title: 'HÓA ĐƠN PHÒNG', x: 1425, w: 270, color: '#047857' },
+  { num: '6', title: 'THANH TOÁN & QUẢN TRỊ', x: 1780, w: 300, color: '#047857' }
+];
+
+const NODES = [
+  // === COL 1 (x=25): ① KHÁCH HÀNG + Đổi phòng + Danh mục hạng/lễ ===
+  { id: 'KHACH_HANG', owner: 'TV1', type: 'Bảng vật lý · Trục chính ①', x: 25, y: 78, w: 260, spine: true,
+    cols: [['PK','ma_khach'],['','ho_ten'],['UK','so_dien_thoai'],['UK','email'],['UK','so_giay_to'],['UK','sql_login'],['','trang_thai']],
+    note: 'Điểm khởi đầu của luồng chính (TV1). sql_login kiểm soát quyền BR18: khách chỉ xem, yêu cầu đổi hoặc hủy đơn của chính mình trước khi nhận phòng.' },
+  { id: 'YEU_CAU_THAY_DOI', owner: 'TV1', type: 'Bảng vật lý', x: 25, y: 340, w: 260,
+    cols: [['PK','ma_yeu_cau_doi'],['FK','ma_don'],['','loai_yeu_cau'],['','mo_ta_nhu_cau'],['','trang_thai_yc'],['','thoi_diem_tao']],
+    note: 'Ghi nhận yêu cầu đổi ngày/hạng/phòng ban đầu của khách hoặc do sự cố. Một yêu cầu có thể sinh nhiều PHUONG_AN_DOI_PHONG (1..N), mỗi phương án tự lưu đủ hạng, phòng, kỳ ở và giá.' },
+  { id: 'PHUONG_AN_DOI_PHONG', owner: 'TV1', type: 'Bảng vật lý', x: 25, y: 560, w: 260,
+    cols: [['PK','ma_phuong_an'],['FK','ma_yeu_cau_doi'],['FK','ma_hang_de_xuat'],['FK','ma_phong_de_xuat'],['','ngay_den / di_de_xuat'],['','gia_de_xuat'],['','trang_thai_khach'],['','thoi_diem_phan_hoi'],['','trang_thai_ap_dung']],
+    note: 'ĐIỂM SỬA #4: Lưu trọn bộ nội dung khách đồng ý trên từng phương án (hạng phòng, số phòng, kỳ ở mới, giá và thời điểm phản hồi). Cùng 1 yêu cầu có thể có nhiều phương án khác ngày/hạng/phòng (vd C hết chỗ -> tạo phương án D chờ xác nhận riêng).' },
+  { id: 'HANG_PHONG', owner: 'TV5', type: 'Bảng vật lý', x: 25, y: 865, w: 260,
+    cols: [['PK','ma_hang'],['','ten_hang'],['','gia_niem_yet'],['','suc_chua_toi_da'],['','trang_thai']],
+    note: 'Danh mục hạng phòng do TV5 chủ trì (xuất hiện 1 lần). Sửa gia_niem_yet chỉ áp dụng cho đơn/chặng phát sinh sau thời điểm cập nhật (BR09).' },
+  { id: 'LICH_NGAY_LE', owner: 'TV5', type: 'Bảng vật lý', x: 25, y: 1085, w: 260,
+    cols: [['PK','ma_ngay_le'],['UK','ngay_le'],['','ten_dip_le'],['','ty_le_coc_ap_dung'],['','trang_thai']],
+    note: 'Lịch ngày lễ (TV5) đối chiếu theo khoảng ngày [ngay_den, ngay_di) để tính co_dem_le và áp mức cọc 80% dịp lễ (BR22, BR29).' },
+
+  // === COL 2 (x=370): ② LƯỢT LƯU TRÚ + Giữ tạm + Liên hệ + Phòng + VIEW LICH_PHONG ===
+  { id: 'LUOT_LUU_TRU', owner: 'TV2', type: 'Bảng vật lý · Trục chính ②', x: 370, y: 78, w: 260, spine: true,
+    cols: [['PK','ma_luot'],['UK','ma_luot_hien_thi'],['FK','ma_khach'],['','ngay_bat_dau_ky'],['','ngay_ket_thuc_ky'],['','trang_thai_luot']],
+    note: 'Trục chính ② do TV2 chủ trì (chỉ xuất hiện 1 lần). Nhóm nhiều đơn đặt phòng (A và B cùng kỳ/nối tiếp) của 1 khách; TV4 dùng làm khóa gom hóa đơn tổng.' },
+  { id: 'LUOT_GIU_PHONG', owner: 'TV2', type: 'Bảng vật lý', x: 370, y: 340, w: 260,
+    cols: [['PK','ma_giu_phong'],['FK','ma_don'],['FK','ma_phong'],['FK','ma_le_tan'],['','ngay_giu_tu / den'],['','bat_dau / het_han_30p'],['','trang_thai_giu']],
+    note: 'Nguồn chặn lịch #1 của VIEW LICH_PHONG. Tách rõ khoảng ngày bị giữ và hạn 30 phút. Mỗi đơn tối đa 1 lượt DANG_GIU còn hạn (filtered UNIQUE); quan hệ 0..N lưu lịch sử hết hạn.' },
+  { id: 'LICH_SU_LIEN_HE', owner: 'TV2', type: 'Bảng vật lý', x: 370, y: 585, w: 260,
+    cols: [['PK','ma_lien_he'],['FK','ma_don'],['FK','ma_le_tan'],['FK','ma_phuong_an'],['','muc_dich / ket_qua'],['','thoi_diem_hen_moi'],['','thoi_diem_lien_he']],
+    note: 'Ghi vết gọi/nhắn đến muộn (6h/12h), no-show, check-in từ xa và trao đổi phương án đổi phòng (FK ma_phuong_an). Dùng DATETIME để xử lý hẹn đến 01:00 hôm sau.' },
+  { id: 'PHONG', owner: 'TV5', type: 'Bảng vật lý', x: 370, y: 865, w: 260,
+    cols: [['PK','ma_phong'],['FK','ma_hang'],['','so_phong'],['','tang'],['','trang_thai_kinh_doanh']],
+    note: 'Do TV5 chủ trì (xuất hiện 1 lần). KHÔNG lưu 1 trạng thái trống/đặt tĩnh cho mọi ngày; khả dụng tổng hợp động qua VIEW LICH_PHONG.' },
+  { id: 'LICH_PHONG', owner: 'VIEW', type: '<<VIEW>> Tổng hợp', x: 370, y: 1085, w: 260,
+    cols: [['VW','ma_phong'],['VW','nguon_chan'],['VW','ma_tham_chieu'],['VW','tu_ngay / den_ngay'],['VW','het_han_30p'],['VW','trang_thai_hieu_luc']],
+    note: 'ĐIỂM SỬA #1: VIEW tổng hợp từ 4 nguồn thật: (1) LUOT_GIU_PHONG đang hạn 30p, (2) DON_DAT_PHONG đã xác nhận trước check-in, (3) CHANG_LUU_TRU đang mở (DANG_O — gia hạn chỉ mở & chặn từ thời điểm bắt đầu kỳ gia hạn), (4) VAN_HANH_PHONG (BAO_TRI).' },
+
+  // === COL 3 (x=715): ③ ĐƠN ĐẶT PHÒNG + Cọc + Bồi thường ===
+  { id: 'DON_DAT_PHONG', owner: 'TV2', type: 'Bảng vật lý · Trục chính ③', x: 715, y: 78, w: 270, spine: true,
+    cols: [['PK','ma_don'],['UK','ma_dat_phong'],['FK','ma_luot'],['FK','ma_hang'],['FK','ma_phong_du_kien'],['','ngay_den / ngay_di'],['','tg_khach_xn / tg_chot'],['','tg_checkin_chuan / hen'],['','muc_coc_yeu_cau'],['','trang_thai_don']],
+    note: 'Trục chính ③ do TV2 chủ trì. FK ma_phong_du_kien -> PHONG.ma_phong (NULL khi chờ xếp) chỉ chặn lịch khi đơn đã xác nhận (trước check-in). Sau check-in/chuyển phòng, lịch chặn chuyển sang CHANG_LUU_TRU.' },
+  { id: 'KHOAN_COC', owner: 'TV4', type: 'Bảng vật lý', x: 715, y: 415, w: 270,
+    cols: [['PK','ma_coc'],['FK','ma_don'],['','so_tien_nhan'],['','hinh_thuc_nhan'],['UK','ma_giao_dich'],['','trang_thai_coc'],['FK','ma_nhan_vien']],
+    note: 'Tiền cọc gắn theo ma_don nên giữ nguyên khi chuyển phòng. Tổng hoàn + cấn + giữ trên XU_LY_COC không vượt so_tien_nhan (BR23).' },
+  { id: 'XU_LY_COC', owner: 'TV4', type: 'Bảng vật lý', x: 715, y: 665, w: 270,
+    cols: [['PK','ma_xu_ly'],['FK','ma_coc'],['','loai_xu_ly (CAN/HOAN/GIU)'],['','so_tien'],['FK','ma_hoa_don_phong'],['FK','ma_hoa_don_tong'],['FK','ma_nhan_vien']],
+    note: 'ĐIỂM SỬA #4: Khi loai_xu_ly = CAN, cặp (ma_hoa_don_tong, ma_hoa_don_phong) trỏ tới CHI_TIET_HOA_DON_TONG. Cho phép tất toán chỉ bằng cấn cọc mà không cần tạo KHOAN_THU.' },
+  { id: 'BOI_THUONG_VOUCHER', owner: 'TV5', type: 'Bảng vật lý', x: 715, y: 950, w: 270,
+    cols: [['PK','ma_boi_thuong'],['FK','ma_su_co'],['FK','ma_don'],['FK','ma_nv_duyet'],['','loai_bt / gia_tri'],['','trang_thai_duyet']],
+    note: 'Quản lý (TV5) quyết định phương án xử lý sự cố và duyệt voucher/bồi thường khi lỗi thuộc khách sạn (UC26, BR29, BR36).' },
+
+  // === COL 4 (x=1070): ④ CHẶNG LƯU TRÚ + Vận hành + Sự cố + Phát sinh + Kho ===
+  { id: 'CHANG_LUU_TRU', owner: 'TV2', type: 'Bảng vật lý · Trục chính ④', x: 1070, y: 78, w: 270, spine: true,
+    cols: [['PK','ma_chang'],['FK','ma_don'],['FK','ma_phong'],['','so_thu_tu_chang'],['','loai_chang'],['','ngay_tinh_tu / den'],['','tg_vao_tt / tg_ra_tt'],['','don_gia_ap_dung'],['','trang_thai_chang']],
+    note: 'Trục chính ④ (TV2). Chuyển A->C đóng chặng A (tạo việc dọn) và mở chặng C cùng ma_don. Gia hạn: kiểm tra lịch, xác nhận & mở chặng GIA_HAN tại thời điểm bắt đầu kỳ mới — chốt chi phí kỳ cũ, mở HĐ riêng, giữ nguyên đơn, không đòi cọc mới và KHÔNG tạo việc dọn nếu ở tiếp cùng phòng.' },
+  { id: 'PHAT_SINH_CHANG', owner: 'TV3', type: 'Bảng vật lý', x: 1070, y: 385, w: 270,
+    cols: [['PK','ma_phat_sinh'],['FK','ma_chang'],['FK','ma_nhan_vien'],['FK','ma_dich_vu (NULL)'],['FK,UK','ma_dong_kho (NULL)'],['','so_luong / don_gia_chot'],['','tinh_phi / trang_thai']],
+    note: 'ĐIỂM SỬA #5: Đúng 1 nguồn (ma_dich_vu XOR ma_dong_kho). Chỉ phát sinh tinh_phi = 1 & đã xác nhận mới liên kết 1..1 -> 0..1 sang CHI_TIET_HOA_DON (tính đúng 1 lần).' },
+  { id: 'VAN_HANH_PHONG', owner: 'TV3', type: 'Bảng vật lý', x: 1070, y: 650, w: 270,
+    cols: [['PK','ma_phieu_vh'],['FK','ma_phong'],['FK','ma_chang'],['FK','ma_su_co'],['FK','ma_nhan_vien'],['','loai_phieu (DON/BAO_TRI)'],['','tu_ngay / den_ngay'],['','trang_thai']],
+    note: 'Nguồn chặn lịch #4 (BAO_TRI) và điều kiện sẵn sàng giao phòng (DON_PHONG sinh ra ở bước 3 check-out hoặc chuyển phòng).' },
+  { id: 'SU_CO_PHONG', owner: 'TV3', type: 'Bảng vật lý', x: 1070, y: 925, w: 270,
+    cols: [['PK','ma_su_co'],['FK','ma_phong'],['FK','ma_chang'],['FK','ma_nv_ghi_nhan'],['','mo_ta / muc_do'],['','trang_thai_su_co'],['','thoi_diem_ghi_nhan']],
+    note: 'ĐIỂM SỬA #2: Thống nhất tên SU_CO_PHONG do TV3 chủ trì. Vận hành ghi sự cố -> Lễ tân đổi phòng -> TV5 duyệt BOI_THUONG_VOUCHER.' },
+  { id: 'CHUNG_TU_KHO', owner: 'TV3', type: 'Bảng vật lý', x: 1070, y: 1165, w: 270,
+    cols: [['PK','ma_chung_tu'],['FK','ma_nhan_vien'],['','loai_chung_tu (NHAP/XUAT)'],['','ly_do / can_cu'],['','trang_thai / tg_lap']],
+    note: 'Chứng từ nhập/xuất kho (UC12, BR12). Ghi nhận cả vật tư nội bộ dọn phòng lẫn vật tư xuất bán tính phí.' },
+
+  // === COL 5 (x=1425): ⑤ HÓA ĐƠN PHÒNG + Chi tiết HĐ + Điều chỉnh + Vật tư/Dịch vụ ===
+  { id: 'HOA_DON_PHONG', owner: 'TV4', type: 'Bảng vật lý · Trục chính ⑤', x: 1425, y: 78, w: 270, spine: true,
+    cols: [['PK','ma_hoa_don_phong'],['FK,UK','ma_chang'],['','tien_phong'],['','tong_phi_dich_vu'],['','tong_tien'],['','trang_thai_hd'],['FK','ma_nv_chot']],
+    note: 'Trục chính ⑤ (TV4). Thứ tự check-out chuẩn: (1) Chốt phí (mọi chặng của đơn đều có HOA_DON_PHONG đã chốt) -> (2) Tất toán đúng đơn (công nợ = 0) -> (3) Đóng chặng & giao dọn.' },
+  { id: 'CHI_TIET_HOA_DON', owner: 'TV4', type: 'Thực thể yếu', x: 1425, y: 345, w: 270,
+    cols: [['PK,FK','ma_hoa_don_phong'],['PK','so_dong'],['','loai_dong'],['FK,UK','ma_phat_sinh (NULL)'],['','so_luong / don_gia'],['','thanh_tien']],
+    note: 'ĐIỂM SỬA #5: Thực thể yếu (khung đôi). FK,UK ma_phat_sinh (filtered unique) đảm bảo truy về đúng PHAT_SINH_CHANG của chặng và mỗi phát sinh chỉ tính đúng 1 lần.' },
+  { id: 'DIEU_CHINH_HOA_DON', owner: 'TV4', type: 'Bảng vật lý', x: 1425, y: 585, w: 270,
+    cols: [['PK','ma_dieu_chinh'],['FK','ma_hoa_don_phong'],['','so_tien_chenh'],['','ly_do'],['FK','ma_nguoi_de_xuat'],['FK','ma_nguoi_duyet'],['','thoi_diem']],
+    note: 'ĐIỂM SỬA #2: Do TV4 chủ trì (xuất hiện 1 lần). Chỉ Quản lý hoặc trưởng bộ phận có quyền (VAI_TRO_QUYEN.duoc_dieu_chinh_hd = 1) mới được duyệt điều chỉnh hóa đơn đã chốt (BR33).' },
+  { id: 'DICH_VU', owner: 'TV3', type: 'Bảng vật lý', x: 1425, y: 820, w: 270,
+    cols: [['PK','ma_dich_vu'],['','ten_dich_vu'],['','don_vi_tinh'],['','tinh_phi'],['','don_gia_hien_hanh']],
+    note: 'ĐIỂM SỬA #5: Giữ DICH_VU là bảng vật lý riêng biệt với VAT_TU.' },
+  { id: 'VAT_TU', owner: 'TV3', type: 'Bảng vật lý', x: 1425, y: 1000, w: 270,
+    cols: [['PK','ma_vat_tu'],['','ten_vat_tu'],['','don_vi_tinh'],['','so_luong_ton (>=0)'],['','tinh_phi / don_gia']],
+    note: 'ĐIỂM SỬA #5: Giữ VAT_TU là bảng vật lý riêng biệt với DICH_VU (tồn kho >= 0 trong giao dịch BR12).' },
+  { id: 'CT_CHUNG_TU_KHO', owner: 'TV3', type: 'Bảng vật lý', x: 1425, y: 1185, w: 270,
+    cols: [['PK','ma_dong_kho'],['FK','ma_chung_tu'],['FK','ma_vat_tu'],['','so_luong (>0)']],
+    note: 'Chi tiết dòng nhập/xuất vật tư. Là nguồn xuất kho (0..1) để PHAT_SINH_CHANG truy vết vật tư tính phí.' },
+
+  // === COL 6 (x=1780): ⑥ THANH TOÁN (HĐ Tổng, Khoản thu, Phân bổ) + VIEW VT_DV + TV5 Quản trị ===
+  { id: 'HOA_DON_TONG', owner: 'TV4', type: 'Bảng vật lý · Trục chính ⑥', x: 1780, y: 78, w: 300, spine: true,
+    cols: [['PK','ma_hoa_don_tong'],['UK','so_chung_tu'],['FK,UK','ma_thu (NULLABLE)'],['','tong_chi_phi'],['','so_coc_can / da_tra_truoc'],['','so_tien_thu_them (=0đ)'],['','nhan_chung_tu']],
+    note: 'Trục chính ⑥ & ĐIỂM SỬA #3: ma_thu NULLABLE (quan hệ 0,1 — 0,1 với KHOAN_THU) cho phép chứng từ cuối kỳ 0đ khi cấn cọc hoặc trừ gói trả trước. Ghi rõ tong_chi_phi, so_coc_can, so_da_tra_truoc (truy qua PHAN_BO_THU -> KHOAN_THU loại THANH_TOAN_TRON_GOI), so_tien_thu_them = 0đ và nhan_chung_tu = "Thanh toán trọn gói" khi khách mua gói.' },
+  { id: 'CHI_TIET_HOA_DON_TONG', owner: 'TV4', type: 'Thực thể yếu', x: 1780, y: 315, w: 300,
+    cols: [['PK,FK','ma_hoa_don_tong'],['PK,FK','ma_hoa_don_phong']],
+    note: 'Thực thể yếu (khung đôi) liệt kê các HOA_DON_PHONG được gom thanh toán hoặc cấn cọc trong HOA_DON_TONG.' },
+  { id: 'KHOAN_THU', owner: 'TV4', type: 'Bảng vật lý', x: 1780, y: 430, w: 300,
+    cols: [['PK','ma_thu'],['FK','ma_luot'],['','loai_thu (BO_SUNG/TRON_GOI)'],['','so_tien / phuong_thuc'],['UK','ma_giao_dich'],['','thoi_diem_thu'],['FK','ma_nhan_vien']],
+    note: 'ĐIỂM SỬA #3: Lưu cả lần thu bổ sung cuối kỳ lẫn khoản đã trả trước mua gói (loai_thu = THANH_TOAN_TRON_GOI). Mỗi khoản thu chỉ tính đúng 1 lần trong báo cáo doanh thu TV5 (BR17).' },
+  { id: 'PHAN_BO_THU', owner: 'TV4', type: 'Bảng vật lý', x: 1780, y: 655, w: 300,
+    cols: [['PK','ma_phan_bo'],['FK,UQ1','ma_thu'],['FK,UQ1','ma_hoa_don_phong'],['','loai_pb (TRUC_TIEP/GOI)'],['','so_tien_phan_bo'],['UQ1','UNIQUE(ma_thu, ma_hd_phong)']],
+    note: 'ĐIỂM SỬA #2 & #3: Khóa ghép UNIQUE(ma_thu, ma_hoa_don_phong) — KHÔNG phải hai UNIQUE riêng! Một khoản thu (gồm cả Thanh toán trọn gói) phân bổ được cho nhiều hóa đơn phòng, và một hóa đơn phòng nhận được nhiều lần thu; mỗi cặp chỉ có 1 dòng.' },
+  { id: 'VAT_TU_DICH_VU', owner: 'VIEW', type: '<<VIEW>> Báo cáo', x: 1780, y: 840, w: 300,
+    cols: [['VW','loai_nguon (VT/DV)'],['VW','ma_mat_hang'],['VW','ten_mat_hang'],['VW','tinh_phi / don_gia']],
+    note: 'ĐIỂM SỬA #5: VIEW báo cáo tổng hợp (UNION ALL từ VAT_TU và DICH_VU) cho TV5 (UC19), không tạo bảng vật lý trùng lặp.' },
+  { id: 'VAI_TRO_QUYEN', owner: 'TV5', type: 'Bảng vật lý', x: 1780, y: 985, w: 300,
+    cols: [['PK','ma_vai_tro'],['','ten_vai_tro'],['','duoc_dieu_chinh_hd'],['','duoc_duyet_boi_thuong']],
+    note: 'Phân quyền theo nhóm công việc (UC18, BR19) và kiểm soát quyền duyệt điều chỉnh HĐ / bồi thường (BR33).' },
+  { id: 'NHAN_VIEN', owner: 'TV5', type: 'Bảng vật lý', x: 1780, y: 1135, w: 300,
+    cols: [['PK','ma_nhan_vien'],['FK','ma_vai_tro'],['','ho_ten / bo_phan'],['UK','sql_login'],['','trang_thai']],
+    note: 'ĐIỂM SỬA #2: Do TV5 chủ trì (xuất hiện 1 lần). Dùng chung toàn hệ thống cho Lễ tân, Vận hành, Thu ngân, Quản lý.' },
+  { id: 'NHAT_KY_KIEM_TOAN', owner: 'TV5', type: 'Bảng vật lý', x: 1780, y: 1275, w: 300,
+    cols: [['PK','ma_nhat_ky'],['FK','ma_nhan_vien'],['','ten_bang / hanh_dong'],['','tg_thuc_hien']],
+    note: 'Trigger audit (UC20, BR19) ghi nhận người thực hiện, thời điểm, giá trị cũ/mới cho các thao tác nhạy cảm.' }
+];
+
+const ROW_H = 18.5, HEAD_H = 26, PAD_B = 8;
+const NODE_MAP = {};
+NODES.forEach(n => {
+  n.h = HEAD_H + n.cols.length * ROW_H + PAD_B;
+  NODE_MAP[n.id] = n;
+});
+
+const EDGES = [
+  // === MAIN SPINE (① -> ② -> ③ -> ④ -> ⑤ -> ⑥) ===
+  { id:'s1', from:'KHACH_HANG', to:'LUOT_LUU_TRU', sc:'1,1', dc:'0,N', label:'tao_luot', flows:['all','main','change','checkout'], isSpine:true },
+  { id:'s2', from:'LUOT_LUU_TRU', to:'DON_DAT_PHONG', sc:'1,1', dc:'1,N', label:'gom_don', flows:['all','main','schedule','change','checkout'], isSpine:true },
+  { id:'s3', from:'DON_DAT_PHONG', to:'CHANG_LUU_TRU', sc:'1,1', dc:'0,N', label:'mo_chang', flows:['all','main','schedule','checkout','inventory'], isSpine:true },
+  { id:'s4', from:'CHANG_LUU_TRU', to:'HOA_DON_PHONG', sc:'1,1', dc:'0,1', label:'lap_hoa_don', flows:['all','main','checkout','inventory','audit'], isSpine:true },
+  { id:'s5', from:'HOA_DON_PHONG', to:'CHI_TIET_HOA_DON_TONG', sc:'1,1', dc:'0,N', label:'duoc_liet_ke', flows:['all','main','checkout'], isSpine:true },
+  { id:'s6', from:'HOA_DON_TONG', to:'CHI_TIET_HOA_DON_TONG', sc:'1,1', dc:'1,N', label:'gom_hd_phong', flows:['all','main','checkout'], isSpine:true },
+
+  // Catalog & Room Schedule
+  { id:'e3', from:'HANG_PHONG', to:'DON_DAT_PHONG', sc:'1,1', dc:'0,N', label:'dat_theo_hang', flows:['all','schedule'] },
+  { id:'e4', from:'HANG_PHONG', to:'PHONG', sc:'1,1', dc:'0,N', label:'gom_phong', flows:['all','schedule'] },
+  { id:'e5', from:'PHONG', to:'DON_DAT_PHONG', sc:'0,1', dc:'0,N', label:'xep_du_kien', flows:['all','schedule','change'] },
+  { id:'e6', from:'DON_DAT_PHONG', to:'LUOT_GIU_PHONG', sc:'1,1', dc:'0,N', label:'giu_tam_30p', flows:['all','schedule'] },
+  { id:'e7', from:'PHONG', to:'LUOT_GIU_PHONG', sc:'1,1', dc:'0,N', label:'bi_giu_tam', flows:['all','schedule'] },
+  { id:'e9', from:'PHONG', to:'CHANG_LUU_TRU', sc:'1,1', dc:'0,N', label:'o_thuc_te', flows:['all','schedule','checkout'] },
+
+  // Multi-proposal room change (Point 3)
+  { id:'e10', from:'DON_DAT_PHONG', to:'YEU_CAU_THAY_DOI', sc:'1,1', dc:'0,N', label:'gui_yeu_cau', flows:['all','change'] },
+  { id:'e11', from:'YEU_CAU_THAY_DOI', to:'PHUONG_AN_DOI_PHONG', sc:'1,1', dc:'0,N', label:'gom_phuong_an', flows:['all','change'] },
+  { id:'e12', from:'PHONG', to:'PHUONG_AN_DOI_PHONG', sc:'0,1', dc:'0,N', label:'de_xuat_phong', flows:['all','change'] },
+  { id:'e12b', from:'HANG_PHONG', to:'PHUONG_AN_DOI_PHONG', sc:'1,1', dc:'0,N', label:'hang_de_xuat', flows:['all','change'] },
+  { id:'e13', from:'DON_DAT_PHONG', to:'LICH_SU_LIEN_HE', sc:'1,1', dc:'0,N', label:'lien_he', flows:['all','change'] },
+  { id:'e14', from:'PHUONG_AN_DOI_PHONG', to:'LICH_SU_LIEN_HE', sc:'0,1', dc:'0,N', label:'ghi_phan_hoi', flows:['all','change'] },
+
+  // VIEW LICH_PHONG (Point 1)
+  { id:'ev1', from:'LUOT_GIU_PHONG', to:'LICH_PHONG', sc:'src', dc:'VW', label:'nguon_1_giu_30p', flows:['all','schedule'], isView:true },
+  { id:'ev2', from:'DON_DAT_PHONG', to:'LICH_PHONG', sc:'src', dc:'VW', label:'nguon_2_da_xn', flows:['all','schedule'], isView:true },
+  { id:'ev3', from:'CHANG_LUU_TRU', to:'LICH_PHONG', sc:'src', dc:'VW', label:'nguon_3_chang_gia_han', flows:['all','schedule'], isView:true },
+  { id:'ev4', from:'VAN_HANH_PHONG', to:'LICH_PHONG', sc:'src', dc:'VW', label:'nguon_4_bao_tri', flows:['all','schedule'], isView:true },
+
+  // TV3 Ops & Incidents
+  { id:'e15', from:'PHONG', to:'VAN_HANH_PHONG', sc:'1,1', dc:'0,N', label:'don_bao_tri', flows:['all','schedule','checkout','audit'] },
+  { id:'e16', from:'CHANG_LUU_TRU', to:'VAN_HANH_PHONG', sc:'0,1', dc:'0,N', label:'giao_don_sau_chot', flows:['all','main','checkout'] },
+  { id:'e17', from:'PHONG', to:'SU_CO_PHONG', sc:'1,1', dc:'0,N', label:'su_co_phong', flows:['all','audit'] },
+  { id:'e18', from:'CHANG_LUU_TRU', to:'SU_CO_PHONG', sc:'0,1', dc:'0,N', label:'su_co_chang', flows:['all','audit'] },
+  { id:'e19', from:'SU_CO_PHONG', to:'VAN_HANH_PHONG', sc:'0,1', dc:'0,N', label:'can_bao_tri', flows:['all','audit'] },
+  { id:'e20', from:'SU_CO_PHONG', to:'BOI_THUONG_VOUCHER', sc:'0,1', dc:'0,N', label:'duyet_boi_thuong', flows:['all','audit'] },
+  { id:'e21', from:'DON_DAT_PHONG', to:'BOI_THUONG_VOUCHER', sc:'1,1', dc:'0,N', label:'ap_dung_don', flows:['all','audit'] },
+
+  // Inventory & Charges + VIEW VAT_TU_DICH_VU (Point 5)
+  { id:'e22', from:'VAT_TU', to:'CT_CHUNG_TU_KHO', sc:'1,1', dc:'0,N', label:'xuat_nhap', flows:['all','inventory'] },
+  { id:'e23', from:'CHUNG_TU_KHO', to:'CT_CHUNG_TU_KHO', sc:'1,1', dc:'1,N', label:'gom_chi_tiet', flows:['all','inventory'] },
+  { id:'e24', from:'CT_CHUNG_TU_KHO', to:'PHAT_SINH_CHANG', sc:'0,1', dc:'0,1', label:'nguon_xuat_kho', flows:['all','inventory'] },
+  { id:'e25', from:'DICH_VU', to:'PHAT_SINH_CHANG', sc:'0,1', dc:'0,N', label:'nguon_dich_vu', flows:['all','inventory'] },
+  { id:'e26', from:'CHANG_LUU_TRU', to:'PHAT_SINH_CHANG', sc:'1,1', dc:'0,N', label:'phat_sinh_chang', flows:['all','inventory','checkout'] },
+  { id:'ev5', from:'VAT_TU', to:'VAT_TU_DICH_VU', sc:'src', dc:'VW', label:'union_vat_tu', flows:['all','inventory'], isView:true },
+  { id:'ev6', from:'DICH_VU', to:'VAT_TU_DICH_VU', sc:'src', dc:'VW', label:'union_dich_vu', flows:['all','inventory'], isView:true },
+  { id:'e27', from:'PHAT_SINH_CHANG', to:'CHI_TIET_HOA_DON', sc:'1,1', dc:'0,1', label:'tinh_phi_1_lan', flows:['all','inventory','checkout'] },
+
+  // Deposits, Payments & Check-out (Point 4)
+  { id:'e28', from:'DON_DAT_PHONG', to:'KHOAN_COC', sc:'1,1', dc:'0,N', label:'nhan_coc', flows:['all','main','checkout'] },
+  { id:'e29', from:'KHOAN_COC', to:'XU_LY_COC', sc:'1,1', dc:'0,N', label:'xu_ly_coc', flows:['all','main','checkout'] },
+  { id:'e31', from:'HOA_DON_PHONG', to:'CHI_TIET_HOA_DON', sc:'1,1', dc:'0,N', label:'gom_dong_phi', flows:['all','main','checkout','inventory'] },
+  { id:'e32', from:'HOA_DON_PHONG', to:'DIEU_CHINH_HOA_DON', sc:'1,1', dc:'0,N', label:'co_dieu_chinh', flows:['all','audit','checkout'] },
+  { id:'e35', from:'XU_LY_COC', to:'CHI_TIET_HOA_DON_TONG', sc:'0,N', dc:'0,1', label:'can_coc_vao', flows:['all','main','checkout'] },
+  { id:'e36', from:'LUOT_LUU_TRU', to:'KHOAN_THU', sc:'1,1', dc:'0,N', label:'thu_theo_luot', flows:['all','main','checkout'] },
+  { id:'e37', from:'KHOAN_THU', to:'HOA_DON_TONG', sc:'0,1', dc:'0,1', label:'phat_hanh (0..1)', flows:['all','main','checkout'] },
+  { id:'e38', from:'KHOAN_THU', to:'PHAN_BO_THU', sc:'1,1', dc:'1,N', label:'chia_phan_bo', flows:['all','main','checkout'] },
+  { id:'e39', from:'HOA_DON_PHONG', to:'PHAN_BO_THU', sc:'1,1', dc:'0,N', label:'duoc_phan_bo', flows:['all','main','checkout'] },
+
+  // TV5 Roles, Staff, Audit
+  { id:'e40', from:'VAI_TRO_QUYEN', to:'NHAN_VIEN', sc:'1,1', dc:'0,N', label:'phan_quyen', flows:['all','audit'] },
+  { id:'e41', from:'NHAN_VIEN', to:'NHAT_KY_KIEM_TOAN', sc:'1,1', dc:'0,N', label:'thuc_hien_audit', flows:['all','audit'] },
+  { id:'e42', from:'NHAN_VIEN', to:'DIEU_CHINH_HOA_DON', sc:'1,1', dc:'0,N', label:'duyet_dieu_chinh', flows:['all','audit'] },
+  { id:'e43', from:'NHAN_VIEN', to:'BOI_THUONG_VOUCHER', sc:'1,1', dc:'0,N', label:'duyet_voucher', flows:['all','audit'] }
+];
+
+const FLOWS = {
+  main: {
+    title: '★ Luồng nghiệp vụ chính: Khách hàng → Lượt lưu trú → Đơn đặt phòng → Chặng lưu trú → Hóa đơn phòng → Thanh toán',
+    desc: 'Trục xương sống chạy thẳng từ trái sang phải qua 6 cột. Bấm từng bước bên dưới để đi trọn vòng đời một lượt lưu trú từ lúc khách đặt phòng đến lúc tất toán và giao dọn.',
+    nodes: ['KHACH_HANG','LUOT_LUU_TRU','DON_DAT_PHONG','CHANG_LUU_TRU','HOA_DON_PHONG','CHI_TIET_HOA_DON','HOA_DON_TONG','CHI_TIET_HOA_DON_TONG','KHOAN_COC','XU_LY_COC','KHOAN_THU','PHAN_BO_THU','VAN_HANH_PHONG'],
+    steps: [
+      { label: '① Khách hàng', focus: ['KHACH_HANG','LUOT_LUU_TRU'],
+        detail: 'Khách hàng (TV1) đăng nhập bằng sql_login, tìm hạng phòng trống và khởi tạo một Lượt lưu trú mới.' },
+      { label: '② Lượt lưu trú', focus: ['KHACH_HANG','LUOT_LUU_TRU','DON_DAT_PHONG'],
+        detail: 'Một LUOT_LUU_TRU (TV2) gom 1 hoặc nhiều DON_DAT_PHONG (ví dụ phòng A và phòng B cùng kỳ) chạy độc lập lịch, cọc và check-in.' },
+      { label: '③ Đơn đặt phòng', focus: ['LUOT_LUU_TRU','DON_DAT_PHONG','KHOAN_COC'],
+        detail: 'Đơn đi từ Chờ xếp phòng -> giữ tạm 30p -> khách xác nhận & nộp KHOAN_COC (30% / 80% / miễn) -> Đã xác nhận.' },
+      { label: '④ Chặng lưu trú', focus: ['DON_DAT_PHONG','CHANG_LUU_TRU','HOA_DON_PHONG'],
+        detail: 'Check-in mở CHANG_LUU_TRU; chuyển phòng A->C hoặc gia hạn mở chặng mới cùng ma_don mà không ghi đè phòng cũ.' },
+      { label: '⑤ Hóa đơn phòng', focus: ['CHANG_LUU_TRU','HOA_DON_PHONG','CHI_TIET_HOA_DON'],
+        detail: 'Mỗi chặng lập tối đa 1 HOA_DON_PHONG (0..1) gồm tiền phòng và các CHI_TIET_HOA_DON chốt phí phát sinh.' },
+      { label: '⑥ Thanh toán & Giao dọn', focus: ['HOA_DON_PHONG','CHI_TIET_HOA_DON_TONG','HOA_DON_TONG','XU_LY_COC','KHOAN_THU','PHAN_BO_THU','CHANG_LUU_TRU','VAN_HANH_PHONG'],
+        detail: 'Tất toán qua HOA_DON_TONG (chỉ cấn cọc hoặc kèm KHOAN_THU + PHAN_BO_THU). Khi công nợ đơn = 0 -> đóng chặng cuối & giao việc dọn phòng (VAN_HANH_PHONG).' }
+    ]
+  },
+  schedule: {
+    title: 'Luồng 1 · Lịch phòng (VIEW LICH_PHONG) & 4 nguồn dữ liệu thật',
+    desc: 'PHONG không lưu trạng thái tĩnh cho mọi ngày. LICH_PHONG là VIEW tổng hợp từ 4 nguồn thật; gia hạn kiểm tra lịch, xác nhận và mở chặng tại thời điểm bắt đầu kỳ mới (không chặn trước, không tạo việc dọn nếu ở tiếp cùng phòng).',
+    nodes: ['PHONG','HANG_PHONG','LUOT_LUU_TRU','DON_DAT_PHONG','LUOT_GIU_PHONG','CHANG_LUU_TRU','VAN_HANH_PHONG','LICH_PHONG'],
+    steps: [
+      { label: 'B1. Giữ tạm 30p', focus: ['DON_DAT_PHONG','LUOT_GIU_PHONG','PHONG','LICH_PHONG'],
+        detail: 'Lễ tân tạo LUOT_GIU_PHONG (tối đa 1 lượt DANG_GIU/đơn). Hết 30 phút tự động không còn chặn trong VIEW LICH_PHONG.' },
+      { label: 'B2. Đã xác nhận', focus: ['DON_DAT_PHONG','PHONG','LICH_PHONG'],
+        detail: 'Trước check-in, DON_DAT_PHONG.ma_phong_du_kien -> PHONG.ma_phong chặn khoảng nửa mở [ngay_den, ngay_di).' },
+      { label: 'B3. Chuyển A → C', focus: ['DON_DAT_PHONG','CHANG_LUU_TRU','PHONG','VAN_HANH_PHONG','LICH_PHONG'],
+        detail: 'Ngày 05/11 chuyển A sang C: đóng chặng A (ngay_tinh_den=05/11, sinh việc dọn), mở chặng C (05-07/11). Từ đêm 05, C bị chặn còn A được giải phóng sau khi dọn.' },
+      { label: 'B4. Gia hạn tại mốc bắt đầu', focus: ['CHANG_LUU_TRU','HOA_DON_PHONG','PHONG','LICH_PHONG'],
+        detail: 'Kiểm tra lịch trống, xác nhận và mở chặng GIA_HAN tại thời điểm bắt đầu kỳ gia hạn: chốt chi phí & HĐ kỳ cũ, mở HĐ riêng cho kỳ mới, giữ nguyên đơn, không đòi cọc mới và không tạo việc dọn nếu ở tiếp cùng phòng.' },
+      { label: 'B5. Bảo trì', focus: ['VAN_HANH_PHONG','PHONG','LICH_PHONG'],
+        detail: 'VAN_HANH_PHONG (loai_phieu = BAO_TRI) chặn lịch trong [tu_ngay, den_ngay) và cảnh báo lễ tân nếu đụng lượt giữ/đơn đã đặt.' }
+    ]
+  },
+  change: {
+    title: 'Luồng 2 · Đổi phòng đa phương án (Khách đồng ý C nhưng C hết chỗ → đề xuất D)',
+    desc: 'Mỗi PHUONG_AN_DOI_PHONG lưu trọn bộ nội dung khách đồng ý: hạng phòng, số phòng, kỳ ở mới, giá và thời điểm phản hồi (tránh mơ hồ khi 1 yêu cầu có nhiều phương án khác ngày hoặc khác hạng).',
+    nodes: ['KHACH_HANG','LUOT_LUU_TRU','DON_DAT_PHONG','YEU_CAU_THAY_DOI','PHUONG_AN_DOI_PHONG','HANG_PHONG','LICH_SU_LIEN_HE','PHONG'],
+    steps: [
+      { label: 'B1. Gửi yêu cầu', focus: ['DON_DAT_PHONG','YEU_CAU_THAY_DOI'],
+        detail: 'Khách gửi YEU_CAU_THAY_DOI (đổi ngày/hạng/phòng) hoặc lễ tân mở yêu cầu đổi do sự cố.' },
+      { label: 'B2. Phương án #1 (Hạng/Kỳ/Phòng C)', focus: ['YEU_CAU_THAY_DOI','PHUONG_AN_DOI_PHONG','HANG_PHONG','PHONG','LICH_SU_LIEN_HE'],
+        detail: 'Lễ tân tạo PHUONG_AN #1 lưu đủ ma_hang_de_xuat, ma_phong_de_xuat = C, ngay_den/di_de_xuat và gia_de_xuat. Khách đồng ý -> chốt phản hồi trên Phương án #1.' },
+      { label: 'B3. C hết chỗ → Phương án #2 (Phòng D)', focus: ['YEU_CAU_THAY_DOI','PHUONG_AN_DOI_PHONG','HANG_PHONG','PHONG','LICH_SU_LIEN_HE'],
+        detail: 'Khi áp dụng, C hết chỗ -> Phương án #1 chuyển KHONG_KHA_DUNG; tạo PHUONG_AN #2 (có thể khác phòng D, khác hạng hoặc ngày) với trang_thai_khach = CHO_XAC_NHAN chờ khách xác nhận riêng.' }
+    ]
+  },
+  checkout: {
+    title: 'Luồng 3 · Cọc, Hóa đơn tổng (chỉ cấn cọc) & Thứ tự Check-out chuẩn',
+    desc: 'HOA_DON_TONG có quan hệ 0,1 — 0,1 với KHOAN_THU (ma_thu NULLABLE) để tồn tại hợp lệ khi chỉ cấn cọc. Check-out chạy đúng thứ tự 3 bước cho từng đơn.',
+    nodes: ['LUOT_LUU_TRU','DON_DAT_PHONG','CHANG_LUU_TRU','KHOAN_COC','XU_LY_COC','HOA_DON_PHONG','CHI_TIET_HOA_DON','HOA_DON_TONG','CHI_TIET_HOA_DON_TONG','KHOAN_THU','PHAN_BO_THU','VAN_HANH_PHONG','PHAT_SINH_CHANG'],
+    steps: [
+      { label: 'B1. Chốt đủ chi phí', focus: ['CHANG_LUU_TRU','PHAT_SINH_CHANG','CHI_TIET_HOA_DON','HOA_DON_PHONG'],
+        detail: 'Bước 1 — Chốt phí: Mọi chặng thuộc đơn đang trả đều có HOA_DON_PHONG ở trạng thái đã chốt (không thiếu HĐ, không còn NHAP).' },
+      { label: 'B2. Tất toán 0đ (Cấn cọc / Gói trả trước)', focus: ['KHOAN_COC','XU_LY_COC','HOA_DON_TONG','CHI_TIET_HOA_DON_TONG','KHOAN_THU','PHAN_BO_THU','HOA_DON_PHONG'],
+        detail: 'Bước 2 — Tất toán đúng đơn: HOA_DON_TONG (ma_thu NULLABLE) ghi đủ tong_chi_phi, so_coc_can (XU_LY_COC) và so_da_tra_truoc (truy về KHOAN_THU loại THANH_TOAN_TRON_GOI phân bổ qua PHAN_BO_THU với khóa ghép UNIQUE(ma_thu, ma_hoa_don_phong)), số thu thêm = 0đ, nhãn "Thanh toán trọn gói" khi mua gói.' },
+      { label: 'B3. Đóng chặng & Giao dọn', focus: ['DON_DAT_PHONG','CHANG_LUU_TRU','VAN_HANH_PHONG'],
+        detail: 'Bước 3 — Đóng chặng cuối (tg_ra_tt, DA_CHOT) và tự động tạo phiếu VAN_HANH_PHONG (loai_phieu = DON_PHONG) để buồng phòng dọn.' }
+    ]
+  },
+  inventory: {
+    title: 'Luồng 4 · Tách riêng VAT_TU & DICH_VU + Tính phí phát sinh đúng 1 lần',
+    desc: 'VAT_TU và DICH_VU là 2 bảng vật lý riêng; VAT_TU_DICH_VU chỉ là VIEW báo cáo. CHI_TIET_HOA_DON truy về đúng PHAT_SINH_CHANG qua FK,UK ma_phat_sinh.',
+    nodes: ['VAT_TU','DICH_VU','VAT_TU_DICH_VU','CHUNG_TU_KHO','CT_CHUNG_TU_KHO','PHAT_SINH_CHANG','CHANG_LUU_TRU','CHI_TIET_HOA_DON','HOA_DON_PHONG'],
+    steps: [
+      { label: 'B1. Tách VAT_TU & DICH_VU', focus: ['VAT_TU','DICH_VU','VAT_TU_DICH_VU'],
+        detail: 'VAT_TU quản lý tồn kho (>=0), DICH_VU quản lý dịch vụ. Báo cáo gộp TV5 đọc từ VIEW VAT_TU_DICH_VU (UNION ALL).' },
+      { label: 'B2. Xuất kho nội bộ vs Tính phí', focus: ['VAT_TU','CHUNG_TU_KHO','CT_CHUNG_TU_KHO','PHAT_SINH_CHANG'],
+        detail: 'Xuất vật tư dọn phòng (tinh_phi=0) chỉ có CHUNG_TU_KHO/CT_CHUNG_TU_KHO. Xuất đồ uống tính phí tạo thêm PHAT_SINH_CHANG gắn ma_dong_kho (XOR ma_dich_vu).' },
+      { label: 'B3. Lên hóa đơn đúng 1 lần', focus: ['CHANG_LUU_TRU','PHAT_SINH_CHANG','CHI_TIET_HOA_DON','HOA_DON_PHONG'],
+        detail: 'CHI_TIET_HOA_DON có FK,UK ma_phat_sinh (filtered unique) -> truy về đúng chặng phòng cũ ngay cả sau khi chuyển phòng, chặn tính trùng 2 lần.' }
+    ]
+  },
+  audit: {
+    title: 'Luồng 5 · Sự cố (TV3), Điều chỉnh HĐ (TV4), Phân quyền & Kiểm toán (TV5)',
+    desc: 'Mỗi bảng dùng chung chỉ xuất hiện 1 lần: SU_CO_PHONG của TV3, DIEU_CHINH_HOA_DON của TV4, NHAN_VIEN / VAI_TRO_QUYEN / BOI_THUONG_VOUCHER / NHAT_KY_KIEM_TOAN của TV5.',
+    nodes: ['PHONG','CHANG_LUU_TRU','SU_CO_PHONG','VAN_HANH_PHONG','BOI_THUONG_VOUCHER','DON_DAT_PHONG','HOA_DON_PHONG','DIEU_CHINH_HOA_DON','VAI_TRO_QUYEN','NHAN_VIEN','NHAT_KY_KIEM_TOAN'],
+    steps: [
+      { label: 'B1. Sự cố & Bồi thường', focus: ['PHONG','SU_CO_PHONG','VAN_HANH_PHONG','BOI_THUONG_VOUCHER','NHAN_VIEN'],
+        detail: 'TV3 ghi SU_CO_PHONG (và mở bảo trì nếu cần); TV5 quyết định phương án và duyệt BOI_THUONG_VOUCHER gắn ma_su_co + ma_don.' },
+      { label: 'B2. Điều chỉnh HĐ đã chốt', focus: ['HOA_DON_PHONG','DIEU_CHINH_HOA_DON','VAI_TRO_QUYEN','NHAN_VIEN'],
+        detail: 'DIEU_CHINH_HOA_DON (TV4) giữ nguyên số liệu gốc; chỉ NHAN_VIEN có VAI_TRO_QUYEN.duoc_dieu_chinh_hd = 1 mới được duyệt.' },
+      { label: 'B3. Trigger kiểm toán', focus: ['NHAN_VIEN','NHAT_KY_KIEM_TOAN'],
+        detail: 'Trigger audit ghi mọi thao tác nhạy cảm (đổi trạng thái, chốt hóa đơn, thu tiền, điều chỉnh) vào NHAT_KY_KIEM_TOAN.' }
+    ]
+  }
+};
+
+const svgNS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs = {}, parent = null) {
+  const node = document.createElementNS(svgNS, tag);
+  for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
+  if (parent) parent.appendChild(node);
+  return node;
+}
+
+let currentFlow = 'all';
+let currentStepIdx = -1;
+let currentOwner = 'ALL';
+let selectedNodeId = 'DON_DAT_PHONG';
+let scale = 0.56, panX = 12, panY = 8;
+
+function getAnchor(a, b) {
+  const acx = a.x + a.w / 2, acy = a.y + a.h / 2;
+  const bcx = b.x + b.w / 2, bcy = b.y + b.h / 2;
+  const dx = bcx - acx, dy = bcy - acy;
+  if (Math.abs(dx) >= Math.abs(dy)) {
+    return dx >= 0 ? { x: a.x + a.w, y: acy, dir: [1, 0] } : { x: a.x, y: acy, dir: [-1, 0] };
+  }
+  return dy >= 0 ? { x: acx, y: a.y + a.h, dir: [0, 1] } : { x: acx, y: a.y, dir: [0, -1] };
+}
+
+function drawCrowsFoot(g, pt, dir, card, color) {
+  if (card === 'src' || card === 'VW') return;
+  const [dx, dy] = dir;
+  const px = -dy, py = dx;
+  const mk = (x1, y1, x2, y2) => el('line', { x1, y1, x2, y2, stroke: color, 'stroke-width': 1.45, 'stroke-linecap': 'round' }, g);
+  const { x, y } = pt;
+  if (card === '1,1') {
+    [7, 12].forEach(d => mk(x + dx*d - px*6, y + dy*d - py*6, x + dx*d + px*6, y + dy*d + py*6));
+  } else if (card === '0,1') {
+    mk(x + dx*7 - px*6, y + dy*7 - py*6, x + dx*7 + px*6, y + dy*7 + py*6);
+    el('circle', { cx: x + dx*14, cy: y + dy*14, r: 3.8, fill: '#ffffff', stroke: color, 'stroke-width': 1.45 }, g);
+  } else if (card === '1,N') {
+    const bx = x + dx*11, by = y + dy*11;
+    mk(bx, by, x + px*6.5, y + py*6.5);
+    mk(bx, by, x - px*6.5, y - py*6.5);
+    mk(x + dx*13 - px*6, y + dy*13 - py*6, x + dx*13 + px*6, y + dy*13 + py*6);
+  } else if (card === '0,N') {
+    const bx = x + dx*11, by = y + dy*11;
+    mk(bx, by, x + px*6.5, y + py*6.5);
+    mk(bx, by, x - px*6.5, y - py*6.5);
+    el('circle', { cx: x + dx*16, cy: y + dy*16, r: 3.8, fill: '#ffffff', stroke: color, 'stroke-width': 1.45 }, g);
+  }
+}
+
+function renderDiagram() {
+  const lanesLayer = document.getElementById('lanes-layer');
+  const edgesLayer = document.getElementById('edges-layer');
+  const nodesLayer = document.getElementById('nodes-layer');
+  lanesLayer.replaceChildren();
+  edgesLayer.replaceChildren();
+  nodesLayer.replaceChildren();
+
+  // Stage header pills across top (① -> ⑥)
+  STAGES.forEach((st, i) => {
+    el('rect', { x: st.x, y: 16, width: st.w, height: 38, rx: 10, fill: '#ffffff', stroke: st.color, 'stroke-width': 1.5 }, lanesLayer);
+    const t = el('text', { x: st.x + st.w / 2, y: 40, 'text-anchor': 'middle', fill: st.color, 'font-size': 13, 'font-weight': 700 }, lanesLayer);
+    t.textContent = `${st.num}. ${st.title}`;
+    if (i < STAGES.length - 1) {
+      const nx = STAGES[i + 1].x;
+      const x1 = st.x + st.w + 8, x2 = nx - 10;
+      el('line', { x1, y1: 35, x2, y2: 35, stroke: '#103766', 'stroke-width': 2.2, 'stroke-linecap': 'round' }, lanesLayer);
+      el('path', { d: `M ${x2 - 7} 29 L ${x2} 35 L ${x2 - 7} 41`, fill: 'none', stroke: '#103766', 'stroke-width': 2.2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, lanesLayer);
+    }
+  });
+
+  // Spread anchors per side
+  const sideCount = {};
+  const edgeAnchors = EDGES.map(e => {
+    const a = NODE_MAP[e.from], b = NODE_MAP[e.to];
+    const p1 = getAnchor(a, b);
+    const p2 = getAnchor(b, a);
+    const k1 = `${e.from}_${p1.dir[0]}_${p1.dir[1]}`;
+    const k2 = `${e.to}_${p2.dir[0]}_${p2.dir[1]}`;
+    sideCount[k1] = (sideCount[k1] || 0) + 1;
+    sideCount[k2] = (sideCount[k2] || 0) + 1;
+    return { e, a, b, p1, p2, k1, k2 };
+  });
+  const sideIdx = {};
+  edgeAnchors.forEach(item => {
+    const { e, a, b, p1, p2, k1, k2 } = item;
+    sideIdx[k1] = (sideIdx[k1] || 0) + 1;
+    sideIdx[k2] = (sideIdx[k2] || 0) + 1;
+    const c1 = sideCount[k1], i1 = sideIdx[k1];
+    const c2 = sideCount[k2], i2 = sideIdx[k2];
+    if (p1.dir[0] !== 0) p1.y = a.y + HEAD_H + ((a.h - HEAD_H) * i1) / (c1 + 1);
+    else p1.x = a.x + (a.w * i1) / (c1 + 1);
+    if (p2.dir[0] !== 0) p2.y = b.y + HEAD_H + ((b.h - HEAD_H) * i2) / (c2 + 1);
+    else p2.x = b.x + (b.w * i2) / (c2 + 1);
+
+    const g = el('g', { class: 'edge-g', 'data-id': e.id, 'data-from': e.from, 'data-to': e.to }, edgesLayer);
+    const s1x = p1.x + p1.dir[0] * 18, s1y = p1.y + p1.dir[1] * 18;
+    const s2x = p2.x + p2.dir[0] * 18, s2y = p2.y + p2.dir[1] * 18;
+    let d;
+    if (p1.dir[0] !== 0 && p2.dir[0] !== 0) {
+      const mx = (s1x + s2x) / 2;
+      d = `M ${p1.x} ${p1.y} L ${mx} ${p1.y} L ${mx} ${p2.y} L ${p2.x} ${p2.y}`;
+    } else if (p1.dir[1] !== 0 && p2.dir[1] !== 0) {
+      const my = (s1y + s2y) / 2;
+      d = `M ${p1.x} ${p1.y} L ${p1.x} ${my} L ${p2.x} ${my} L ${p2.x} ${p2.y}`;
+    } else if (p1.dir[0] !== 0) {
+      d = `M ${p1.x} ${p1.y} L ${p2.x} ${p1.y} L ${p2.x} ${p2.y}`;
+    } else {
+      d = `M ${p1.x} ${p1.y} L ${p1.x} ${p2.y} L ${p2.x} ${p2.y}`;
+    }
+    const cls = e.isView ? 'edge-path view-edge' : (e.isSpine ? 'edge-path spine-edge' : 'edge-path');
+    el('path', { d, class: cls }, g);
+    const col = e.isView ? '#7c3aed' : (e.isSpine ? '#103766' : '#334155');
+    drawCrowsFoot(g, p1, p1.dir, e.sc, col);
+    drawCrowsFoot(g, p2, p2.dir, e.dc, col);
+
+    const lx = (p1.x + p2.x) / 2;
+    const ly = (p1.y + p2.y) / 2 - 4;
+    const lw = e.label.length * 6.3 + 8;
+    el('rect', { x: lx - lw/2, y: ly - 9, width: lw, height: 14, rx: 4, class: 'edge-label-bg' }, g);
+    const txt = el('text', { x: lx, y: ly + 1, 'text-anchor': 'middle', class: 'edge-label' }, g);
+    txt.textContent = e.label;
+
+    if (!e.isView) {
+      const t1 = el('text', {
+        x: p1.x + p1.dir[0]*24 + (p1.dir[1] !== 0 ? 12 : 0),
+        y: p1.y + p1.dir[1]*22 + (p1.dir[0] !== 0 ? -7 : 3),
+        'text-anchor': 'middle', class: 'card-label'
+      }, g);
+      t1.textContent = e.sc;
+      const t2 = el('text', {
+        x: p2.x + p2.dir[0]*24 + (p2.dir[1] !== 0 ? 12 : 0),
+        y: p2.y + p2.dir[1]*22 + (p2.dir[0] !== 0 ? -7 : 3),
+        'text-anchor': 'middle', class: 'card-label'
+      }, g);
+      t2.textContent = e.dc;
+    }
+  });
+
+  // Render Nodes
+  NODES.forEach(n => {
+    const meta = OWNER_META[n.owner];
+    const isView = n.owner === 'VIEW';
+    const isWeak = n.type === 'Thực thể yếu';
+    const g = el('g', { class: 'entity-g', 'data-id': n.id, 'data-owner': n.owner, tabindex: '0' }, nodesLayer);
+
+    el('rect', {
+      x: n.x, y: n.y, width: n.w, height: n.h, rx: 8,
+      fill: isView ? meta.bg : '#ffffff',
+      stroke: meta.color,
+      'stroke-width': isWeak ? 2.4 : (n.spine ? 2.2 : 1.5),
+      'stroke-dasharray': isView ? '6 4' : 'none',
+      class: 'box-border'
+    }, g);
+    if (isWeak) {
+      el('rect', { x: n.x + 3.5, y: n.y + 3.5, width: n.w - 7, height: n.h - 7, rx: 5, fill: 'none', stroke: meta.color, 'stroke-width': 1 }, g);
+    }
+
+    el('rect', { x: n.x, y: n.y, width: n.w, height: HEAD_H, rx: 8, fill: meta.color }, g);
+    el('rect', { x: n.x, y: n.y + HEAD_H - 8, width: n.w, height: 8, fill: meta.color }, g);
+    const titleTxt = el('text', { x: n.x + 10, y: n.y + 17, fill: '#ffffff', 'font-size': 11.5, 'font-weight': 700 }, g);
+    titleTxt.textContent = isView ? `<<VIEW>> ${n.id}` : n.id;
+
+    const ownerBadge = el('text', {
+      x: n.x + n.w - 8, y: n.y + 17, fill: 'rgba(255,255,255,0.9)',
+      'text-anchor': 'end', 'font-size': 10, 'font-weight': 700, 'font-family': 'ui-monospace, monospace'
+    }, g);
+    ownerBadge.textContent = n.owner;
+
+    el('line', { x1: n.x + 44, y1: n.y + HEAD_H, x2: n.x + 44, y2: n.y + n.h, stroke: '#cbd5e1', 'stroke-width': 1 }, g);
+
+    n.cols.forEach(([k, col], idx) => {
+      const ry = n.y + HEAD_H + idx * ROW_H + 14;
+      if (k) {
+        const kt = el('text', {
+          x: n.x + 22, y: ry, 'text-anchor': 'middle',
+          'font-size': 10, 'font-weight': 700, 'font-family': 'ui-monospace, monospace',
+          fill: k.includes('PK') ? '#1e40af' : (k.includes('FK') ? '#92400e' : '#475569')
+        }, g);
+        kt.textContent = k;
+      }
+      const ct = el('text', {
+        x: n.x + 51, y: ry,
+        'font-size': 11, 'font-weight': k.includes('PK') ? 700 : 400,
+        'text-decoration': k.includes('PK') ? 'underline' : 'none',
+        'font-family': 'ui-monospace, monospace', fill: '#0f172a'
+      }, g);
+      ct.textContent = col;
+    });
+
+    g.addEventListener('click', ev => { ev.stopPropagation(); selectNode(n.id); });
+    g.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); selectNode(n.id); } });
+  });
+}
+
+function updateTransform() {
+  document.getElementById('viewport').setAttribute('transform', `translate(${panX}, ${panY}) scale(${scale})`);
+  document.getElementById('zoom-pct').textContent = `${Math.round(scale * 100)}%`;
+}
+
+function fitToView() {
+  const area = document.getElementById('canvas-area');
+  const rect = area.getBoundingClientRect();
+  const sx = (rect.width - 20) / 2120;
+  const sy = (rect.height - 20) / 1400;
+  scale = Math.max(0.3, Math.min(1.15, Math.min(sx, sy)));
+  panX = Math.max(6, (rect.width - 2120 * scale) / 2);
+  panY = Math.max(6, (rect.height - 1400 * scale) / 2);
+  updateTransform();
+}
+
+function applyHighlights() {
+  let activeNodes = null;
+  if (currentFlow !== 'all') {
+    const f = FLOWS[currentFlow];
+    activeNodes = new Set(currentStepIdx >= 0 ? f.steps[currentStepIdx].focus : f.nodes);
+  }
+  document.querySelectorAll('.entity-g').forEach(g => {
+    const id = g.dataset.id, owner = g.dataset.owner;
+    let dim = false;
+    if (activeNodes && !activeNodes.has(id)) dim = true;
+    if (currentOwner !== 'ALL' && owner !== currentOwner) dim = true;
+    g.classList.toggle('dimmed', dim);
+    g.classList.toggle('selected', id === selectedNodeId);
+  });
+  document.querySelectorAll('.edge-g').forEach(g => {
+    const from = g.dataset.from, to = g.dataset.to;
+    const edge = EDGES.find(x => x.id === g.dataset.id);
+    let dim = false, hi = false;
+    if (activeNodes) {
+      const both = activeNodes.has(from) && activeNodes.has(to);
+      const inFlow = edge.flows.includes(currentFlow);
+      dim = !(both && (currentStepIdx >= 0 || inFlow));
+      hi = !dim;
+    } else if (currentOwner !== 'ALL') {
+      dim = !(NODE_MAP[from].owner === currentOwner || NODE_MAP[to].owner === currentOwner);
+    } else if (selectedNodeId) {
+      hi = (from === selectedNodeId || to === selectedNodeId);
+    }
+    g.classList.toggle('dimmed', dim);
+    g.classList.toggle('highlight', hi);
+  });
+}
+
+function selectNode(id) {
+  selectedNodeId = id;
+  const n = NODE_MAP[id];
+  if (!n) return;
+  const meta = OWNER_META[n.owner];
+  document.getElementById('ins-title').textContent = n.id;
+  const badges = document.getElementById('ins-badges');
+  badges.replaceChildren();
+  const b1 = document.createElement('span');
+  b1.className = 'badge'; b1.style.background = meta.color; b1.textContent = meta.name;
+  const b2 = document.createElement('span');
+  b2.className = 'badge badge-type'; b2.textContent = n.type;
+  badges.append(b1, b2);
+
+  document.getElementById('ins-note').textContent = n.note;
+
+  const colsEl = document.getElementById('ins-cols');
+  colsEl.replaceChildren();
+  n.cols.forEach(([k, name]) => {
+    const row = document.createElement('div'); row.className = 'col-row';
+    const key = document.createElement('span');
+    key.className = 'col-key' + (k.includes('PK') ? ' pk' : k.includes('FK') ? ' fk' : k.includes('UK') ? ' uk' : '');
+    key.textContent = k || '—';
+    const cn = document.createElement('span'); cn.className = 'col-name'; cn.textContent = name;
+    row.append(key, cn); colsEl.appendChild(row);
+  });
+
+  const relsEl = document.getElementById('ins-rels');
+  relsEl.replaceChildren();
+  const related = EDGES.filter(e => e.from === id || e.to === id);
+  if (related.length === 0) {
+    const empty = document.createElement('div'); empty.className = 'rel-item';
+    empty.textContent = 'Tra cứu theo khoảng ngày (không cần khóa ngoại cứng).';
+    relsEl.appendChild(empty);
+  } else {
+    related.forEach(e => {
+      const div = document.createElement('div'); div.className = 'rel-item';
+      const strong = document.createElement('strong');
+      strong.textContent = `${e.from} (${e.sc}) — ${e.to} (${e.dc})`;
+      const br = document.createElement('br');
+      const sp = document.createElement('span'); sp.textContent = `Nhãn: ${e.label}`;
+      div.append(strong, br, sp); relsEl.appendChild(div);
+    });
+  }
+  applyHighlights();
+}
+
+function renderFlowBanner() {
+  const banner = document.getElementById('flow-banner');
+  if (currentFlow === 'all') { banner.classList.remove('visible'); return; }
+  const f = FLOWS[currentFlow];
+  banner.classList.add('visible');
+  document.getElementById('fb-title').textContent = f.title;
+  document.getElementById('fb-desc').textContent = f.desc;
+  const stepsEl = document.getElementById('fb-steps');
+  stepsEl.replaceChildren();
+
+  const allPill = document.createElement('button');
+  allPill.type = 'button';
+  allPill.className = 'step-pill' + (currentStepIdx === -1 ? ' active' : '');
+  allPill.textContent = 'Toàn luồng';
+  allPill.addEventListener('click', () => { currentStepIdx = -1; renderFlowBanner(); applyHighlights(); });
+  stepsEl.appendChild(allPill);
+
+  f.steps.forEach((st, idx) => {
+    const p = document.createElement('button');
+    p.type = 'button';
+    p.className = 'step-pill' + (currentStepIdx === idx ? ' active' : '');
+    p.textContent = st.label;
+    p.addEventListener('click', () => {
+      currentStepIdx = idx;
+      if (st.focus.length > 0) selectNode(st.focus[0]);
+      renderFlowBanner();
+      applyHighlights();
+    });
+    stepsEl.appendChild(p);
+  });
+
+  document.getElementById('fb-step-detail').textContent =
+    currentStepIdx >= 0 ? f.steps[currentStepIdx].detail : 'Bấm từng bước phía trên để mô phỏng thứ tự dữ liệu chạy trên sơ đồ.';
+}
+
+document.querySelectorAll('#flow-tabs .tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#flow-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFlow = btn.dataset.flow;
+    currentStepIdx = -1;
+    currentOwner = 'ALL';
+    document.querySelectorAll('#owner-filters .chip').forEach(c => c.classList.toggle('active', c.dataset.owner === 'ALL'));
+    renderFlowBanner();
+    applyHighlights();
+  });
+});
+
+document.querySelectorAll('#owner-filters .chip').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#owner-filters .chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    currentOwner = btn.dataset.owner;
+    applyHighlights();
+  });
+});
+
+const area = document.getElementById('canvas-area');
+let dragging = false, startX = 0, startY = 0;
+area.addEventListener('mousedown', e => {
+  if (e.target.closest('.flow-banner') || e.target.closest('.entity-g')) return;
+  dragging = true; startX = e.clientX - panX; startY = e.clientY - panY;
+});
+window.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  panX = e.clientX - startX; panY = e.clientY - startY;
+  updateTransform();
+});
+window.addEventListener('mouseup', () => { dragging = false; });
+area.addEventListener('wheel', e => {
+  e.preventDefault();
+  const factor = e.deltaY < 0 ? 1.1 : 0.91;
+  scale = Math.max(0.26, Math.min(1.6, scale * factor));
+  updateTransform();
+}, { passive: false });
+
+document.getElementById('btn-zoom-in').addEventListener('click', () => { scale = Math.min(1.6, scale * 1.15); updateTransform(); });
+document.getElementById('btn-zoom-out').addEventListener('click', () => { scale = Math.max(0.26, scale * 0.87); updateTransform(); });
+document.getElementById('btn-fit').addEventListener('click', fitToView);
+window.addEventListener('resize', fitToView);
+
+renderDiagram();
+selectNode('DON_DAT_PHONG');
+fitToView();
+</script>
+</body>
+</html>
